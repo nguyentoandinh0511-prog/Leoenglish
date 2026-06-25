@@ -33,7 +33,7 @@
             padding: 0 20px;
         }
 
-        /* Navbar - Giữ nguyên phong cách gốc */
+        /* Navbar */
         nav {
             background: linear-gradient(135deg, #FFD700, #FF8C00);
             padding: 15px 30px;
@@ -172,8 +172,10 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
             position: relative;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
         .level-card:hover {
             transform: translateY(-15px) scale(1.03);
@@ -243,7 +245,7 @@
         .btn-software { background: linear-gradient(135deg, #3B82F6, #60A5FA); color: white; }
         .btn-zalo { background: linear-gradient(135deg, #22C55E, #15803D); color: white; }
 
-        /* Fireflies hiệu ứng mới */
+        /* Fireflies */
         .firefly {
             position: fixed;
             background: radial-gradient(circle, #FFD700 20%, #FF8C00 70%, transparent);
@@ -311,7 +313,7 @@
             
             <div class="levels-grid">
                 <!-- Starter -->
-                <div class="level-card level-starter" onclick="accessLevel('starter')">
+                <a href="LEVEL STARTER/index.html" class="level-card level-starter">
                     <div class="level-header">
                         <i class="fas fa-seedling"></i> STARTER
                     </div>
@@ -320,10 +322,10 @@
                         <p>Dành cho người mới bắt đầu hoàn toàn. Xây dựng nền tảng phát âm, từ vựng và câu đơn giản.</p>
                         <div class="level-units">24 Units • 60+ Bài học</div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Beginner -->
-                <div class="level-card level-beginner" onclick="accessLevel('beginner')">
+                <a href="LEVEL BEGINNER/index.html" class="level-card level-beginner">
                     <div class="level-header">
                         <i class="fas fa-baby"></i> BEGINNER
                     </div>
@@ -332,10 +334,10 @@
                         <p>Phát triển kỹ năng giao tiếp cơ bản trong các tình huống hàng ngày.</p>
                         <div class="level-units">24 Units • 80+ Bài học</div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Pre-Intermediate -->
-                <div class="level-card level-pre" onclick="accessLevel('pre-intermediate')">
+                <a href="LEVEL PRE-INTERMEDIATE/index.html" class="level-card level-pre">
                     <div class="level-header">
                         <i class="fas fa-chart-line"></i> PRE-INTERMEDIATE
                     </div>
@@ -344,10 +346,10 @@
                         <p>Củng cố ngữ pháp và tăng vốn từ vựng để giao tiếp tự tin hơn.</p>
                         <div class="level-units">24 Units • 100+ Bài học</div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Intermediate -->
-                <div class="level-card level-inter" onclick="accessLevel('intermediate')">
+                <a href="LEVEL INTERMEDIATE/index.html" class="level-card level-inter">
                     <div class="level-header">
                         <i class="fas fa-trophy"></i> INTERMEDIATE
                     </div>
@@ -356,7 +358,7 @@
                         <p>Hoàn thiện kỹ năng, giao tiếp lưu loát và chuẩn bị cho kỳ thi quốc tế.</p>
                         <div class="level-units">24 Units • 120+ Bài học</div>
                     </div>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -384,7 +386,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Leo English. All rights reserved.</p>
-            <p>Hotline: 0799713094 | Email:genwise.languagehub@gmail.com</p>
+            <p>Hotline: 0799713094 | Email: genwise.languagehub@gmail.com</p>
         </div>
     </footer>
 
@@ -429,16 +431,7 @@
             userSection.innerHTML = `<button onclick="handleLogin()" style="background: white; color: #FF8C00; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer;"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>`;
         }
 
-        function accessLevel(level) {
-            if (!clerk || !clerk.user) {
-                alert(`Để truy cập cấp độ ${level.toUpperCase()}, vui lòng đăng nhập trước!`);
-                handleLogin();
-                return;
-            }
-            alert(`Đang chuyển hướng đến nội dung cấp độ ${level.toUpperCase()}...`);
-        }
-
-        // Hiệu ứng đom đóm vàng bay từ dưới lên
+        // Hiệu ứng đom đóm
         function createFireflies() {
             const container = document.body;
             for (let i = 0; i < 25; i++) {
