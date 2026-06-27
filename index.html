@@ -101,7 +101,7 @@
             z-index: 2;
         }
 
-        /* Navbar */
+        /* ====================== NAVBAR ====================== */
         nav {
             background: rgba(5, 8, 22, 0.7);
             backdrop-filter: blur(20px);
@@ -169,6 +169,74 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            font-size: 1.6rem;
+            color: #E0E7FF;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(5, 8, 22, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            padding-top: 100px;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            transition: all 0.4s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: #E0E7FF;
+            font-size: 1.4rem;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 12px 40px;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(79, 70, 229, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Floating Login Button on Mobile */
+        .floating-login {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #4F46E5, #22D3EE);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 9999px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
+            z-index: 1002;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .floating-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.5);
         }
 
         /* Hero */
@@ -251,7 +319,7 @@
             margin-bottom: 2.5rem;
         }
 
-        /* Levels Section - UPDATED LAYOUT */
+        /* Levels Section */
         .levels {
             padding: 120px 0;
             position: relative;
@@ -593,25 +661,27 @@
             }
 
             nav {
-                padding: 12px 20px;
-                margin: 12px 16px;
-                border-radius: 9999px;
-            }
-
-            .logo {
-                font-size: 24px;
+                padding: 14px 20px;
+                margin: 12px 12px;
             }
 
             .nav-links {
-                gap: 1.2rem;
-                font-size: 0.95rem;
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .floating-login {
+                display: flex;
+                align-items: center;
+                gap: 8px;
             }
 
             .hero {
                 padding: 80px 0 100px;
                 gap: 40px;
-                flex-direction: column;
-                text-align: center;
             }
 
             .avatar-container {
@@ -624,26 +694,8 @@
                 height: 220px;
             }
 
-            .glow-ring {
-                inset: -30px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.8rem;
-                line-height: 1.1;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-
             .section-title {
                 font-size: 2.4rem;
-            }
-
-            .section-subtitle {
-                font-size: 1.1rem;
-                padding: 0 10px;
             }
 
             .levels-grid,
@@ -652,66 +704,20 @@
                 gap: 24px;
             }
 
-            .level-card,
-            .course-card {
-                margin: 0 4px;
-            }
-
-            .level-header,
-            .course-header {
-                padding: 24px 20px 16px;
-            }
-
             .action-grid {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 18px;
             }
 
             .action-btn {
                 padding: 18px 24px;
-                font-size: 1.05rem;
+                font-size: 1.1rem;
             }
 
             #adminTerminal {
                 width: 92%;
                 right: 4%;
-                bottom: 20px;
-            }
-
-            .firefly {
-                display: none; /* Reduce visual noise on mobile */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                padding: 60px 0 80px;
-            }
-
-            .hero-content h1 {
-                font-size: 2.4rem;
-            }
-
-            .avatar-container {
-                width: 200px;
-                height: 200px;
-            }
-
-            .avatar {
-                width: 200px;
-                height: 200px;
-            }
-        }
-
-        /* Tablet Optimization */
-        @media (min-width: 768px) and (max-width: 1024px) {
-            .hero {
-                gap: 60px;
-            }
-            
-            .levels-grid,
-            .zoom-grid {
-                grid-template-columns: repeat(2, 1fr);
+                bottom: 80px;
             }
         }
     </style>
@@ -739,7 +745,19 @@
             </div>
             <div id="user-section" class="user-info">
             </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
         </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="#" onclick="toggleMobileMenu()">Trang chủ</a>
+            <a href="#" onclick="toggleMobileMenu()">Giới thiệu</a>
+            <a href="#levels" onclick="toggleMobileMenu()">Chương trình học</a>
+            <a href="#" onclick="toggleMobileMenu()">Tin tức</a>
+            <a href="#" onclick="toggleMobileMenu()">Liên hệ</a>
+        </div>
 
         <div class="hero">
             <div class="avatar-container">
@@ -905,6 +923,10 @@
         </div>
     </div>
 
+    <button onclick="handleLogin()" class="floating-login">
+        <i class="fas fa-sign-in-alt"></i> Đăng nhập
+    </button>
+
     <footer>
         <div class="container">
             <p>&copy; 2026 Leo English. All rights reserved.</p>
@@ -1036,6 +1058,22 @@
             });
         }
 
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.querySelector('.hamburger i');
+            
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                menu.classList.add('active');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        }
+
         function toggleTerminal() {
             const term = document.getElementById('adminTerminal');
             if (term.style.display === 'block') {
@@ -1119,6 +1157,15 @@
             if (e.ctrlKey && e.key === 't') {
                 e.preventDefault();
                 toggleTerminal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            if (!menu.contains(e.target) && !hamburger.contains(e.target) && menu.classList.contains('active')) {
+                toggleMobileMenu();
             }
         });
     </script>
