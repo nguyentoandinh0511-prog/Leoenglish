@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leo English - Trung Tâm Tiếng Anh Chuyên Nghiệp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <title>Leo English -Tiếng Anh Chuyên Nghiệp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -13,123 +13,210 @@
 
     <style>
         :root {
-            --primary: #FFD700;
-            --secondary: #FF8C00;
-            --accent: #FFF9E6;
-            --dark: #2C2C2C;
-            
-            /* Màu định danh riêng cho các level sinh động hơn */
-            --color-starter: #22C55E;
-            --color-beginner: #3B82F6;
-            --color-pre: #7C3AED;
-            --color-inter: #F97316;
+            --primary: #4F46E5;
+            --secondary: #06B6D4;
+            --accent: #A855F7;
+            --highlight: #22D3EE;
+            --dark: #050816;
+            --glass: rgba(255, 255, 255, 0.08);
+            --border: rgba(255, 255, 255, 0.12);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #FFF9E6, #FFE4B5, #FFFFFF);
-            color: #000;
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #050816;
+            color: #E0E7FF;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
         }
+
+        /* Dynamic Background */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .gradient-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
+            animation: mesh-shift 25s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes mesh-shift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(30px, 40px) rotate(2deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* Floating Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: -1;
+            animation: floatOrb 30s infinite linear;
+        }
+
+        .orb1 { width: 600px; height: 600px; background: #4F46E5; top: -10%; left: -10%; animation-delay: 0s; }
+        .orb2 { width: 800px; height: 800px; background: #06B6D4; bottom: -20%; right: -15%; animation-delay: -10s; }
+        .orb3 { width: 500px; height: 500px; background: #A855F7; top: 40%; right: 10%; animation-delay: -20s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(80px, -60px); }
+            100% { transform: translate(0, 0); }
+        }
+
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
         }
 
         /* Navbar */
         nav {
-            background: linear-gradient(135deg, #FFD700, #FF8C00);
-            padding: 15px 30px;
+            background: rgba(5, 8, 22, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-            margin: 15px auto;
+            border-radius: 9999px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
             position: sticky;
-            top: 10px;
+            top: 16px;
             z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        nav:hover {
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+        }
+
         .logo {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 28px;
             font-weight: 700;
-            color: white;
+            background: linear-gradient(90deg, #4F46E5, #22D3EE);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 12px;
         }
+
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
         }
+
         .nav-links a {
-            color: white;
+            color: #E0E7FF;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            position: relative;
         }
-        .nav-links a:hover {
-            color: #FFF9E6;
-            transform: translateY(-2px);
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
         }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
         .user-info {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: white;
-            font-weight: 500;
+            gap: 12px;
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             display: flex;
             align-items: center;
-            gap: 60px;
-            padding: 80px 0;
+            gap: 80px;
+            padding: 120px 0 160px;
             flex-wrap: wrap;
         }
+
         .avatar-container {
             position: relative;
-            width: 320px;
-            height: 320px;
-            margin: 0 auto;
+            width: 280px;
+            height: 280px;
+            flex-shrink: 0;
         }
+
         .avatar {
-            width: 320px;
-            height: 320px;
+            width: 280px;
+            height: 280px;
             border-radius: 50%;
-            border: 12px solid var(--primary);
-            box-shadow: 0 0 60px rgba(255, 215, 0, 0.6),
-                        inset 0 0 40px rgba(255, 255, 255, 0.8);
             background: url('ava.png') center/cover;
+            box-shadow: 
+                0 0 0 12px rgba(79, 70, 229, 0.3),
+                0 0 60px rgba(34, 211, 238, 0.6),
+                inset 0 0 40px rgba(255,255,255,0.2);
             position: relative;
             z-index: 2;
-            transition: transform 0.4s;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .avatar:hover {
-            transform: scale(1.05);
+            transform: scale(1.08) rotate(3deg);
         }
+
         .glow-ring {
             position: absolute;
-            top: -30px;
-            left: -30px;
-            right: -30px;
-            bottom: -30px;
+            inset: -40px;
             border-radius: 50%;
-            background: conic-gradient(transparent, #FFD700, #FF8C00, transparent);
-            animation: rotate-glow 8s linear infinite;
+            background: conic-gradient(
+                transparent 30deg,
+                #4F46E5 80deg,
+                #22D3EE 160deg,
+                #A855F7 240deg,
+                transparent 330deg
+            );
+            animation: rotate-glow 12s linear infinite;
             z-index: 1;
-            filter: blur(20px);
-            opacity: 0.7;
+            filter: blur(18px);
+            opacity: 0.85;
         }
+
         @keyframes rotate-glow {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -137,173 +224,376 @@
 
         .hero-content {
             flex: 1;
-            min-width: 300px;
-        }
-        .hero-content h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-        .hero-content p {
-            font-size: 1.3rem;
-            color: #444;
-            margin-bottom: 2rem;
+            min-width: 320px;
         }
 
-        /* Levels Section - ĐÃ CẢI TIẾN ĐỒNG ĐỀU VÀ SINH ĐỘNG */
-        .levels {
-            padding: 80px 0;
+        .hero-content h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            background: linear-gradient(90deg, #E0E7FF, #C4D0FF, #A5B4FC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
         }
+
+        .hero-content p {
+            font-size: 1.35rem;
+            color: #94A3B8;
+            max-width: 520px;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Levels Section - UPDATED LAYOUT */
+        .levels {
+            padding: 120px 0;
+            position: relative;
+        }
+
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 700;
+            background: linear-gradient(90deg, #E0E7FF, #C4D0FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
-            color: var(--dark);
         }
+
         .section-subtitle {
             text-align: center;
-            font-size: 1.4rem;
-            color: #555;
-            margin-bottom: 3rem;
+            font-size: 1.25rem;
+            color: #64748B;
+            max-width: 620px;
+            margin: 0 auto 4rem;
         }
+
         .levels-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            align-items: stretch; /* Ép buộc các ô có chiều cao bằng nhau */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
         }
-        .level-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column; /* Sắp xếp nội dung theo chiều dọc */
-            height: 100%;
-            border: 2px solid transparent;
+
+        @media (min-width: 1200px) {
+            .levels-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
         
-        /* Hiệu ứng tương tác đổ bóng phát sáng theo tông màu khi hover */
-        .level-card.level-starter:hover { border-color: var(--color-starter); box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2); transform: translateY(-10px); }
-        .level-card.level-beginner:hover { border-color: var(--color-beginner); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2); transform: translateY(-10px); }
-        .level-card.level-pre:hover { border-color: var(--color-pre); box-shadow: 0 20px 40px rgba(124, 122, 237, 0.2); transform: translateY(-10px); }
-        .level-card.level-inter:hover { border-color: var(--color-inter); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2); transform: translateY(-10px); }
-
-        .level-header {
-            padding: 22px 15px;
-            text-align: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            font-family: 'Montserrat', sans-serif;
+        @media (max-width: 1199px) and (min-width: 768px) {
+            .levels-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        .level-starter .level-header { background: linear-gradient(135deg, #4ADE80, var(--color-starter)); }
-        .level-beginner .level-header { background: linear-gradient(135deg, #60A5FA, var(--color-beginner)); }
-        .level-pre .level-header { background: linear-gradient(135deg, #A78BFA, var(--color-pre)); }
-        .level-inter .level-header { background: linear-gradient(135deg, #FB923C, var(--color-inter)); }
 
-        .level-body {
-            padding: 25px 20px;
-            text-align: center;
+        .level-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            position: relative;
+            color: inherit;
+            text-decoration: none;
             display: flex;
             flex-direction: column;
-            flex-grow: 1; /* Tự co giãn phần thân để đẩy text phụ xuống đáy */
+            height: 100%;
+            backdrop-filter: blur(16px);
         }
-        .level-body h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            color: #2C2C2C;
-            font-weight: 600;
+
+        .level-card:hover {
+            transform: translateY(-16px) scale(1.02);
+            box-shadow: 0 30px 70px -15px rgba(79, 70, 229, 0.35);
+            border-color: rgba(79, 70, 229, 0.5);
         }
+
+        .level-header {
+            padding: 32px 24px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .level-icon {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .level-card:hover .level-icon {
+            transform: translateY(-12px) scale(1.15);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.4);
+        }
+
+        .level-starter .level-icon { color: #22C55E; }
+        .level-beginner .level-icon { color: #3B82F6; }
+        .level-pre .level-icon { color: #8B5CF6; }
+        .level-inter .level-icon { color: #F59E0B; }
+
+        .level-header h3 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .level-body {
+            padding: 0 28px 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
         .level-body p {
-            color: #666;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            flex-grow: 1; /* Đảm bảo đoạn văn chiếm hết không gian trống giữa */
-            margin-bottom: 20px;
+            color: #94A3B8;
+            line-height: 1.65;
+            margin-bottom: 2rem;
+            flex-grow: 1;
         }
+
         .level-units {
-            font-size: 0.9rem;
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-weight: 600;
-            display: inline-block;
-            margin: 0 auto;
+            font-size: 0.95rem;
+            padding: 8px 20px;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.08);
+            color: #CBD5E1;
+            font-weight: 500;
+            align-self: flex-start;
         }
-        .level-starter .level-units { background: rgba(34, 197, 94, 0.1); color: var(--color-starter); }
-        .level-beginner .level-units { background: rgba(59, 130, 246, 0.1); color: var(--color-beginner); }
-        .level-pre .level-units { background: rgba(124, 122, 237, 0.1); color: var(--color-pre); }
-        .level-inter .level-units { background: rgba(249, 115, 22, 0.1); color: var(--color-inter); }
+
+        /* NEW ZOOM COURSES SECTION */
+        .zoom-courses {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .zoom-courses .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #E0E7FF, #C4D0FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .zoom-courses .section-subtitle {
+            text-align: center;
+            font-size: 1.25rem;
+            color: #64748B;
+            max-width: 620px;
+            margin: 0 auto 4rem;
+        }
+
+        .zoom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .course-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            backdrop-filter: blur(16px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-card:hover {
+            transform: translateY(-16px) scale(1.02);
+            box-shadow: 0 30px 70px -15px rgba(79, 70, 229, 0.35);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        .course-header {
+            padding: 32px 24px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(79,70,229,0.2), rgba(168,85,247,0.2));
+        }
+
+        .course-icon {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .course-card:hover .course-icon {
+            transform: translateY(-12px) scale(1.15) rotate(8deg);
+        }
+
+        .course-body {
+            padding: 0 28px 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .course-body .title-vi {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .course-body .title-en {
+            font-size: 1rem;
+            color: #94A3B8;
+            margin-bottom: 18px;
+        }
+
+        .course-body p {
+            color: #94A3B8;
+            line-height: 1.65;
+            flex-grow: 1;
+        }
 
         /* Action Buttons */
         .actions {
-            padding: 60px 0;
-            background: rgba(255, 215, 0, 0.15);
-            border-radius: 30px;
-            margin: 40px auto;
+            padding: 100px 0;
+            position: relative;
         }
+
         .action-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
         }
+
         .action-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            padding: 20px 30px;
+            gap: 14px;
+            padding: 22px 32px;
             border-radius: 20px;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.7s;
+        }
+
+        .action-btn:hover::before {
+            left: 200%;
+        }
+
         .action-btn:hover {
             transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(79 70 229);
         }
-        .btn-register { background: linear-gradient(135deg, #22C55E, #4ADE80); color: white; }
-        .btn-software { background: linear-gradient(135deg, #3B82F6, #60A5FA); color: white; }
-        .btn-zalo { background: linear-gradient(135deg, #22C55E, #15803D); color: white; }
+
+        .btn-register {
+            background: linear-gradient(135deg, #22C55E, #4ADE80);
+        }
+
+        .btn-software {
+            background: linear-gradient(135deg, #3B82F6, #60A5FA);
+        }
+
+        .btn-zalo {
+            background: linear-gradient(135deg, #22C55E, #15803D);
+        }
+
+        /* Footer */
+        footer {
+            background: #02040F;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            color: #64748B;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        /* Modals & Terminal */
+        #loginModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 8, 22, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 10001;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #adminTerminal {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 400px;
+            background: #0A0F1C;
+            border: 1px solid #1E2937;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0);
+            overflow: hidden;
+            z-index: 10002;
+        }
 
         /* Fireflies */
         .firefly {
             position: fixed;
-            background: radial-gradient(circle, #FFD700 20%, #FF8C00 70%, transparent);
+            background: radial-gradient(circle, #67E8F9 30%, #22D3EE 70%, transparent);
             border-radius: 50%;
-            box-shadow: 0 0 15px #FFD700;
+            box-shadow: 0 0 18px #67E8F9;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 999;
             animation: firefly-rise linear infinite;
         }
-        @keyframes firefly-rise {
-            0% { transform: translateY(100vh) scale(0.6); opacity: 0.9; }
-            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
-        }
 
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
+        @keyframes firefly-rise {
+            0% { transform: translateY(120vh) scale(0.6); opacity: 0.7; }
+            100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
         }
     </style>
 </head>
 <body>
+    <div class="bg-canvas">
+        <div class="gradient-mesh"></div>
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
     <div class="container">
         <nav>
             <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
+                <i class="fas fa-graduation-cap" style="color: #22D3EE;"></i>
                 LEO ENGLISH
             </div>
             <div class="nav-links">
@@ -314,7 +604,7 @@
                 <a href="#">Liên hệ</a>
             </div>
             <div id="user-section" class="user-info">
-                </div>
+            </div>
         </nav>
 
         <div class="hero">
@@ -323,10 +613,10 @@
                 <div class="avatar"></div>
             </div>
             <div class="hero-content">
-                <h1>Chào mừng đến với<br>Leo English</h1>
-                <p>Trung tâm tiếng Anh hiện đại với chương trình học theo cấp độ rõ ràng, phương pháp tương tác và giáo viên giàu kinh nghiệm.</p>
+                <h1>Let’s upgrade <br> your language</h1>
+                <p> Tiếng Anh hiện đại với chương trình học theo cấp độ, công nghệ tương tác và phương pháp dạy học tiên tiến.</p>
                 <button onclick="document.getElementById('levels').scrollIntoView({ behavior: 'smooth' })" 
-                        style="background: linear-gradient(135deg, #FFD700, #FF8C00); color: white; border: none; padding: 18px 40px; font-size: 1.3rem; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 30px rgba(255,140,0,0.4);">
+                        style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 20px 48px; font-size: 1.25rem; font-weight: 600; border-radius: 9999px; cursor: pointer; box-shadow: 0 10px 30px -10px rgb(79 70 229); transition: all 0.3s ease;">
                     Khám phá các cấp độ
                 </button>
             </div>
@@ -334,50 +624,50 @@
 
         <section id="levels" class="levels">
             <div class="container">
-                <h2 class="section-title">Các Cấp Độ Học</h2>
-                <p class="section-subtitle">Chọn cấp độ phù hợp với trình độ hiện tại của bạn</p>
+                <h2 class="section-title">Các Cấp Độ Học Tập</h2>
+                <p class="section-subtitle">Chọn lộ trình phù hợp với trình độ hiện tại và mục tiêu của bạn</p>
                 
                 <div class="levels-grid">
                     <a href="https://leoenglish-level-starter.vercel.app" target="_blank" class="level-card level-starter">
                         <div class="level-header">
-                            <i class="fas fa-seedling"></i> STARTER
+                            <div class="level-icon"><i class="fas fa-seedling"></i></div>
+                            <h3>STARTER</h3>
                         </div>
                         <div class="level-body">
-                            <h3>Khởi đầu</h3>
-                            <p>Xây dựng nền tảng tiếng Anh từ những kiến thức cơ bản nhất.</p>
+                            <p>Xây dựng nền tảng tiếng Anh từ những kiến thức cơ bản nhất với phương pháp học vui vẻ.</p>
                             <div class="level-units">24 Units • 80+ Bài học</div>
                         </div>
                     </a>
 
                     <a href="https://leoenglish-level-beginner.vercel.app" target="_blank" class="level-card level-beginner">
                         <div class="level-header">
-                            <i class="fas fa-baby"></i> BEGINNER
+                            <div class="level-icon"><i class="fas fa-baby"></i></div>
+                            <h3>BEGINNER</h3>
                         </div>
                         <div class="level-body">
-                            <h3>Mới bắt đầu</h3>
-                            <p>Phát triển kỹ năng giao tiếp cơ bản trong các tình huống hàng ngày.</p>
+                            <p>Phát triển kỹ năng giao tiếp cơ bản trong các tình huống thực tế hàng ngày.</p>
                             <div class="level-units">24 Units • 80+ Bài học</div>
                         </div>
                     </a>
 
                     <a href="https://leoenglish-level-preintermediate.vercel.app" target="_blank" class="level-card level-pre">
                         <div class="level-header">
-                            <i class="fas fa-chart-line"></i> PRE-INTERMEDIATE
+                            <div class="level-icon"><i class="fas fa-chart-line"></i></div>
+                            <h3>PRE-INTERMEDIATE</h3>
                         </div>
                         <div class="level-body">
-                            <h3>Tiền trung cấp</h3>
-                            <p>Củng cố ngữ pháp và tăng vốn từ vựng để giao tiếp tự tin hơn.</p>
+                            <p>Củng cố ngữ pháp và mở rộng vốn từ vựng để giao tiếp tự tin hơn.</p>
                             <div class="level-units">24 Units • 100+ Bài học</div>
                         </div>
                     </a>
 
                     <a href="https://leoenglish-level-intermediate.vercel.app" target="_blank" class="level-card level-inter">
                         <div class="level-header">
-                            <i class="fas fa-trophy"></i> INTERMEDIATE
+                            <div class="level-icon"><i class="fas fa-trophy"></i></div>
+                            <h3>INTERMEDIATE</h3>
                         </div>
                         <div class="level-body">
-                            <h3>Trung cấp</h3>
-                            <p>Hoàn thiện kỹ năng, giao tiếp lưu loát và chuẩn bị cho kỳ thi quốc tế.</p>
+                            <p>Hoàn thiện kỹ năng, giao tiếp lưu loát và sẵn sàng cho các kỳ thi quốc tế.</p>
                             <div class="level-units">24 Units • 120+ Bài học</div>
                         </div>
                     </a>
@@ -385,18 +675,94 @@
             </div>
         </section>
 
+        <!-- NEW ZOOM COURSES SECTION -->
+        <section class="zoom-courses">
+            <div class="container">
+                <h2 class="section-title">Khóa Học Online Qua Zoom</h2>
+                <p class="section-subtitle">Các lớp học trực tuyến tương tác cao với giáo viên giàu kinh nghiệm</p>
+                
+                <div class="zoom-grid">
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-icon"><i class="fas fa-user-graduate"></i></div>
+                        </div>
+                        <div class="course-body">
+                            <div class="title-vi">Lớp kèm 1:1</div>
+                            <div class="title-en">One-on-One Private Tutoring</div>
+                            <p>Học tập cá nhân hóa theo mục tiêu riêng, tiến độ nhanh và linh hoạt lịch học.</p>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-icon"><i class="fas fa-comments"></i></div>
+                        </div>
+                        <div class="course-body">
+                            <div class="title-vi">Lớp Anh văn giao tiếp</div>
+                            <div class="title-en">English Communication Course</div>
+                            <p>Phát triển kỹ năng nghe-nói tự tin qua các tình huống thực tế hàng ngày.</p>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-icon"><i class="fas fa-chart-bar"></i></div>
+                        </div>
+                        <div class="course-body">
+                            <div class="title-vi">Lớp IELTS</div>
+                            <div class="title-en">IELTS Preparation Course</div>
+                            <p>Chuẩn bị toàn diện cho kỳ thi IELTS với chiến lược và luyện tập chuyên sâu.</p>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-icon"><i class="fas fa-briefcase"></i></div>
+                        </div>
+                        <div class="course-body">
+                            <div class="title-vi">Lớp TOEIC</div>
+                            <div class="title-en">TOEIC Preparation Course</div>
+                            <p>Luyện thi TOEIC tập trung Listening &amp; Reading cho mục tiêu công việc.</p>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-icon"><i class="fas fa-school"></i></div>
+                        </div>
+                        <div class="course-body">
+                            <div class="title-vi">Luyện THPT</div>
+                            <div class="title-en">High School Exam Preparation</div>
+                            <p>Ôn luyện tiếng Anh thi tốt nghiệp THPT và đại học với đề thi thực tế.</p>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-header">
+                            <div class="course-icon"><i class="fas fa-users"></i></div>
+                        </div>
+                        <div class="course-body">
+                            <div class="title-vi">Lớp học Cộng Đồng</div>
+                            <div class="title-en">Community English Class</div>
+                            <p>Học nhóm sôi nổi, thực hành giao tiếp và xây dựng cộng đồng học tiếng Anh.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="actions">
             <div class="container">
                 <div class="action-grid">
-                    <a href="#" onclick="alert('Chức năng ghi danh đang được kích hoạt! Vui lòng liên hệ Zalo.')" class="action-btn btn-register">
+                    <a href="https://zalo.me/0799713094" target="_blank" onclick="event.stopImmediatePropagation()" class="action-btn btn-register">
                         <i class="fas fa-user-plus"></i>
                         GHI DANH KHÓA HỌC
                     </a>
-                    <a href="#" onclick="alert('Phần mềm học tương tác Leo English sẽ sớm ra mắt!')" class="action-btn btn-software">
+                    <a href="https://zalo.me/0799713094" target="_blank" onclick="event.stopImmediatePropagation()" class="action-btn btn-software">
                         <i class="fas fa-laptop-code"></i>
                         MUA PHẦN MỀM HỌC
                     </a>
-                    <a href="https://zalo.me/" target="_blank" class="action-btn btn-zalo">
+                    <a href="https://zalo.me/0799713094" target="_blank" class="action-btn btn-zalo">
                         <i class="fab fa-whatsapp"></i>
                         TƯ VẤN QUA ZALO
                     </a>
@@ -412,56 +778,57 @@
         </div>
     </footer>
 
-    <div id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; justify-content: center; align-items: center;">
-        <div style="background: white; padding: 40px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; font-family: 'Poppins', sans-serif;">
-            <span onclick="closeLoginModal()" style="position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: #666;"><i class="fas fa-times"></i></span>
-            <h2 style="text-align: center; margin-bottom: 25px; color: #2C2C2C; font-family: 'Montserrat', sans-serif;">ĐĂNG NHẬP</h2>
+    <!-- Login Modal -->
+    <div id="loginModal">
+        <div style="background: #0F172A; padding: 40px; border-radius: 24px; width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgb(0 0 0); position: relative; border: 1px solid #334155;">
+            <span onclick="closeLoginModal()" style="position: absolute; top: 20px; right: 25px; font-size: 1.6rem; cursor: pointer; color: #64748B;"><i class="fas fa-times"></i></span>
+            <h2 style="text-align: center; margin-bottom: 32px; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">ĐĂNG NHẬP</h2>
             <form id="firebaseLoginForm" onsubmit="executeFirebaseLogin(event)">
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Tên đăng nhập / Username</label>
-                    <input type="text" id="loginUsername" required placeholder="Nhập tên đăng nhập được cấp..." style="width: 100%; padding: 12px 15px; border: 2px solid #E0E0E0; border-radius: 12px; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='#FF8C00'">
+                <div style="margin-bottom: 24px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #CBD5E1;">Tên đăng nhập</label>
+                    <input type="text" id="loginUsername" required placeholder="Nhập username..." style="width: 100%; padding: 16px 20px; background: #1E2937; border: 1px solid #334155; border-radius: 16px; font-size: 1rem; color: white; outline: none;">
                 </div>
-                <div style="margin-bottom: 25px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Mật khẩu</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••" style="width: 100%; padding: 12px 15px; border: 2px solid #E0E0E0; border-radius: 12px; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='#FF8C00'">
+                <div style="margin-bottom: 32px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #CBD5E1;">Mật khẩu</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••" style="width: 100%; padding: 16px 20px; background: #1E2937; border: 1px solid #334155; border-radius: 16px; font-size: 1rem; color: white; outline: none;">
                 </div>
-                <button type="submit" style="width: 100%; background: linear-gradient(135deg, #FFD700, #FF8C00); color: white; border: none; padding: 14px; font-size: 1.1rem; font-weight: 600; border-radius: 12px; cursor: pointer; box-shadow: 0 5px 15px rgba(255,140,0,0.3);">
+                <button type="submit" style="width: 100%; background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 16px; font-size: 1.1rem; font-weight: 600; border-radius: 9999px; cursor: pointer;">
                     Đăng Nhập
                 </button>
             </form>
         </div>
     </div>
 
-    <div id="adminTerminal" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 380px; background: #1E1E1E; color: #00FF00; font-family: 'Courier New', monospace; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 10002; overflow: hidden; border: 1px solid #333;">
-        <div style="background: #333; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; color: #FFF; font-size: 0.85rem;">
-            <span><i class="fas fa-terminal"></i> LEO ENGLISH - ADMIN TERMINAL</span>
-            <span onclick="toggleTerminal()" style="cursor: pointer; color: #FF5555;"><i class="fas fa-times-circle"></i></span>
+    <!-- Admin Terminal -->
+    <div id="adminTerminal">
+        <div style="background: #1E2937; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; color: #CBD5E1; font-size: 0.9rem; border-bottom: 1px solid #334155;">
+            <span><i class="fas fa-terminal"></i> LEO ENGLISH ADMIN</span>
+            <span onclick="toggleTerminal()" style="cursor: pointer; color: #F87171;"><i class="fas fa-times"></i></span>
         </div>
-        <div id="terminalLog" style="padding: 15px; height: 180px; overflow-y: auto; font-size: 0.85rem; line-height: 1.4; border-bottom: 1px solid #333; color: #4ADE80;">
-            <div>[System] Terminal ready...</div>
-            <div>[System] Nhập thông tin để đẩy học viên mới lên Firebase.</div>
+        <div id="terminalLog" style="padding: 20px; height: 200px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.85rem; line-height: 1.5; background: #0F172A; color: #67E8F9;">
+            <div>[SYSTEM] Terminal initialized...</div>
+            <div>[SYSTEM] Ready to sync new students.</div>
         </div>
-        <form onsubmit="addStudentFromTerminal(event)" style="padding: 15px; background: #151515;">
-            <div style="margin-bottom: 10px;">
-                <span style="color: #FF8C00;">username:~$</span>
-                <input type="text" id="termUsername" placeholder="Ví dụ: hocvien01" required style="background: transparent; border: none; color: #00FF00; font-family: inherit; outline: none; width: 60%; font-size: 0.9rem;">
+        <form onsubmit="addStudentFromTerminal(event)" style="padding: 24px; background: #0A0F1C;">
+            <div style="margin-bottom: 16px;">
+                <span style="color: #67E8F9; font-size: 0.85rem;">username → </span>
+                <input type="text" id="termUsername" placeholder="hocvien01" required style="background: transparent; border: none; color: #E0E7FF; font-family: inherit; outline: none; width: 70%;">
             </div>
-            <div style="margin-bottom: 15px;">
-                <span style="color: #FF8C00;">password:~$</span>
-                <input type="text" id="termPassword" placeholder="Mật khẩu" required style="background: transparent; border: none; color: #00FF00; font-family: inherit; outline: none; width: 60%; font-size: 0.9rem;">
+            <div style="margin-bottom: 20px;">
+                <span style="color: #67E8F9; font-size: 0.85rem;">password → </span>
+                <input type="text" id="termPassword" placeholder="••••••" required style="background: transparent; border: none; color: #E0E7FF; font-family: inherit; outline: none; width: 70%;">
             </div>
-            <button type="submit" style="width: 100%; background: #00FF00; color: #000; border: none; padding: 8px; font-family: inherit; font-weight: bold; cursor: pointer; border-radius: 4px;">
-                EXECUTE (CẬP NHẬT)
-            </button>
+            <button type="submit" style="width: 100%; background: linear-gradient(90deg, #22D3EE, #4F46E5); color: #0F172A; border: none; padding: 12px; font-weight: 700; border-radius: 9999px; cursor: pointer;">PUSH TO DATABASE</button>
         </form>
     </div>
 
-    <div onclick="toggleTerminal()" style="position: fixed; bottom: 20px; left: 20px; width: 40px; height: 40px; background: #1E1E1E; color: #00FF00; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10001; border: 1px solid #00FF00;" title="Mở Admin Terminal">
+    <!-- Terminal Toggle Button -->
+    <div onclick="toggleTerminal()" style="position: fixed; bottom: 40px; left: 40px; width: 52px; height: 52px; background: rgba(15, 23, 42, 0.9); border: 2px solid #67E8F9; color: #67E8F9; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(103, 232, 249, 0.3); z-index: 10000; transition: all 0.3s ease;" title="Admin Terminal">
         <i class="fas fa-code"></i>
     </div>
 
     <script>
-        // Cấu hình Firebase - THẦY THAY THÔNG TIN CỦA THẦY VÀO ĐÂY NHÉ:
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY_HERE",
             authDomain: "YOUR_AUTH_DOMAIN_HERE",
@@ -471,30 +838,34 @@
             appId: "YOUR_APP_ID_HERE"
         };
 
-        // Khởi tạo ứng dụng sau khi trang load xong
+        let app;
+
         window.onload = function() {
             if (typeof firebase !== 'undefined') {
-                firebase.initializeApp(firebaseConfig);
+                app = firebase.initializeApp(firebaseConfig);
                 
-                // Lắng nghe trạng thái đăng nhập từ Firebase
                 firebase.auth().onAuthStateChanged((user) => {
                     const userSection = document.getElementById('user-section');
                     if (user) {
-                        const displayName = user.email.split('@')[0];
-                        userSection.innerHTML = 
-                            <span style="margin-right: 15px;"><i class="fas fa-user-circle"></i> Xin chào, \</span>
-                            <button onclick="handleLogout()" style="background: #FF8C00; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-weight:600;">Đăng xuất</button>
-                        ;
+                        const displayName = user.email ? user.email.split('@')[0] : 'User';
+                        userSection.innerHTML = `
+                            <span style="margin-right: 16px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-user-circle"></i> ${displayName}
+                            </span>
+                            <button onclick="handleLogout()" style="background: transparent; color: #67E8F9; border: 1px solid #67E8F9; padding: 8px 20px; border-radius: 9999px; cursor: pointer; font-weight: 500;">Đăng xuất</button>
+                        `;
                     } else {
-                        userSection.innerHTML = 
-                            <button onclick="handleLogin()" style="background: white; color: #FF8C00; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer;">
+                        userSection.innerHTML = `
+                            <button onclick="handleLogin()" style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 10px 24px; border-radius: 9999px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
                                 <i class="fas fa-sign-in-alt"></i> Đăng nhập
                             </button>
-                        ;
+                        `;
                     }
                 });
             }
+            
             createFireflies();
+            initScrollAnimations();
         };
 
         function handleLogin() {
@@ -527,19 +898,25 @@
 
         function handleLogout() {
             firebase.auth().signOut().then(() => {
-                alert("Đã đăng xuất tài khoản.");
+                alert("Đã đăng xuất.");
             });
         }
 
         function toggleTerminal() {
             const term = document.getElementById('adminTerminal');
-            term.style.display = (term.style.display === 'none' || term.style.display === '') ? 'block' : 'none';
+            if (term.style.display === 'block') {
+                term.style.display = 'none';
+            } else {
+                term.style.display = 'block';
+            }
         }
 
         function printTerminalLog(text) {
             const logDiv = document.getElementById('terminalLog');
-            if(logDiv) {
-                logDiv.innerHTML += <div>[\] \</div>;
+            if (logDiv) {
+                const entry = document.createElement('div');
+                entry.innerHTML = text;
+                logDiv.appendChild(entry);
                 logDiv.scrollTop = logDiv.scrollHeight;
             }
         }
@@ -549,7 +926,7 @@
             const username = document.getElementById('termUsername').value.trim();
             const password = document.getElementById('termPassword').value.trim();
             
-            printTerminalLog("Đang lưu học viên lên database: " + username + "...");
+            printTerminalLog(`<span style="color:#67E8F9">[INFO]</span> Đang đẩy học viên <b>${username}</b>...`);
 
             firebase.database().ref('students/' + username).set({
                 username: username,
@@ -557,32 +934,59 @@
                 updatedAt: new Date().toISOString()
             })
             .then(() => {
-                printTerminalLog("<span style='color: #4ADE80;'>✓ Thành công! Dữ liệu đã đồng bộ.</span>");
+                printTerminalLog(`<span style="color:#4ADE80">✓ Thành công! Học viên ${username} đã được thêm.</span>`);
                 document.getElementById('termUsername').value = '';
                 document.getElementById('termPassword').value = '';
             })
             .catch((err) => {
-                printTerminalLog("<span style='color: #FF5555;'>Lỗi: " + err.message + "</span>");
+                printTerminalLog(`<span style="color:#F87171">✗ Lỗi: ${err.message}</span>`);
             });
         }
 
         function createFireflies() {
             const container = document.body;
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 18; i++) {
                 const fly = document.createElement('div');
                 fly.className = 'firefly';
-                const size = 4 + Math.random() * 8;
-                fly.style.width = \px;
-                fly.style.height = \px;
-                fly.style.left = Math.random() * 100 + 'vw';
-                fly.style.bottom = '-20px';
-                fly.style.opacity = 0.6 + Math.random() * 0.4;
-                const duration = 12 + Math.random() * 18;
-                fly.style.animationDuration = \s;
-                fly.style.animationDelay = -\s;
+                const size = 5 + Math.random() * 7;
+                fly.style.width = `${size}px`;
+                fly.style.height = `${size}px`;
+                fly.style.left = `${Math.random() * 100}vw`;
+                fly.style.bottom = '-30px';
+                fly.style.opacity = 0.4 + Math.random() * 0.5;
+                const duration = 15 + Math.random() * 25;
+                fly.style.animationDuration = `${duration}s`;
+                fly.style.animationDelay = `-${Math.random() * 20}s`;
                 container.appendChild(fly);
             }
         }
+
+        function initScrollAnimations() {
+            const cards = document.querySelectorAll('.level-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transitionDelay = `${index * 80}ms`;
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(40px)';
+                observer.observe(card);
+            });
+        }
+
+        // Keyboard shortcut for terminal
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 't') {
+                e.preventDefault();
+                toggleTerminal();
+            }
+        });
     </script>
 </body>
 </html>
