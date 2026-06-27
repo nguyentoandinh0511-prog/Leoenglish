@@ -1,5 +1,4 @@
-<!DOCTYPE html> 
-<!-- Deployed on 2026 -->
+﻿<!DOCTYPE html> 
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -7,13 +6,23 @@
     <title>Leo English - Trung Tâm Tiếng Anh Chuyên Nghiệp</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
     <style>
         :root {
             --primary: #FFD700;
             --secondary: #FF8C00;
             --accent: #FFF9E6;
             --dark: #2C2C2C;
+            
+            /* Màu định danh riêng cho các level sinh động hơn */
+            --color-starter: #22C55E;
+            --color-beginner: #3B82F6;
+            --color-pre: #7C3AED;
+            --color-inter: #F97316;
         }
         * {
             margin: 0;
@@ -144,7 +153,7 @@
             margin-bottom: 2rem;
         }
 
-        /* Levels Section */
+        /* Levels Section - ĐÃ CẢI TIẾN ĐỒNG ĐỀU VÀ SINH ĐỘNG */
         .levels {
             padding: 80px 0;
         }
@@ -163,55 +172,77 @@
         }
         .levels-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 30px;
+            align-items: stretch; /* Ép buộc các ô có chiều cao bằng nhau */
         }
         .level-card {
             background: white;
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
+            flex-direction: column; /* Sắp xếp nội dung theo chiều dọc */
+            height: 100%;
+            border: 2px solid transparent;
         }
-        .level-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
+        
+        /* Hiệu ứng tương tác đổ bóng phát sáng theo tông màu khi hover */
+        .level-card.level-starter:hover { border-color: var(--color-starter); box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2); transform: translateY(-10px); }
+        .level-card.level-beginner:hover { border-color: var(--color-beginner); box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2); transform: translateY(-10px); }
+        .level-card.level-pre:hover { border-color: var(--color-pre); box-shadow: 0 20px 40px rgba(124, 122, 237, 0.2); transform: translateY(-10px); }
+        .level-card.level-inter:hover { border-color: var(--color-inter); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2); transform: translateY(-10px); }
+
         .level-header {
-            padding: 2rem 1.5rem;
+            padding: 22px 15px;
             text-align: center;
             color: white;
             font-weight: 700;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
         }
-        .level-starter .level-header { background: linear-gradient(135deg, #4ADE80, #22C55E); }
-        .level-beginner .level-header { background: linear-gradient(135deg, #60A5FA, #3B82F6); }
-        .level-pre .level-header { background: linear-gradient(135deg, #A78BFA, #7C3AED); }
-        .level-inter .level-header { background: linear-gradient(135deg, #FB923C, #F97316); }
+        .level-starter .level-header { background: linear-gradient(135deg, #4ADE80, var(--color-starter)); }
+        .level-beginner .level-header { background: linear-gradient(135deg, #60A5FA, var(--color-beginner)); }
+        .level-pre .level-header { background: linear-gradient(135deg, #A78BFA, var(--color-pre)); }
+        .level-inter .level-header { background: linear-gradient(135deg, #FB923C, var(--color-inter)); }
 
         .level-body {
-            padding: 2rem;
+            padding: 25px 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Tự co giãn phần thân để đẩy text phụ xuống đáy */
         }
         .level-body h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: #333;
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            color: #2C2C2C;
+            font-weight: 600;
         }
         .level-body p {
             color: #666;
             line-height: 1.6;
+            font-size: 0.95rem;
+            flex-grow: 1; /* Đảm bảo đoạn văn chiếm hết không gian trống giữa */
+            margin-bottom: 20px;
         }
         .level-units {
-            margin-top: 1.5rem;
-            font-size: 0.95rem;
-            color: var(--secondary);
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 30px;
             font-weight: 600;
+            display: inline-block;
+            margin: 0 auto;
         }
+        .level-starter .level-units { background: rgba(34, 197, 94, 0.1); color: var(--color-starter); }
+        .level-beginner .level-units { background: rgba(59, 130, 246, 0.1); color: var(--color-beginner); }
+        .level-pre .level-units { background: rgba(124, 122, 237, 0.1); color: var(--color-pre); }
+        .level-inter .level-units { background: rgba(249, 115, 22, 0.1); color: var(--color-inter); }
 
         /* Action Buttons */
         .actions {
@@ -270,7 +301,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Navbar -->
         <nav>
             <div class="logo">
                 <i class="fas fa-graduation-cap"></i>
@@ -284,13 +314,9 @@
                 <a href="#">Liên hệ</a>
             </div>
             <div id="user-section" class="user-info">
-                <button onclick="handleLogin()" style="background: white; color: #FF8C00; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer;">
-                    <i class="fas fa-sign-in-alt"></i> Đăng nhập
-                </button>
-            </div>
+                </div>
         </nav>
 
-        <!-- Hero -->
         <div class="hero">
             <div class="avatar-container">
                 <div class="glow-ring"></div>
@@ -306,14 +332,12 @@
             </div>
         </div>
 
-        <!-- Levels Section -->
         <section id="levels" class="levels">
             <div class="container">
                 <h2 class="section-title">Các Cấp Độ Học</h2>
                 <p class="section-subtitle">Chọn cấp độ phù hợp với trình độ hiện tại của bạn</p>
                 
                 <div class="levels-grid">
-                    <!-- Starter -->
                     <a href="https://leoenglish-level-starter.vercel.app" target="_blank" class="level-card level-starter">
                         <div class="level-header">
                             <i class="fas fa-seedling"></i> STARTER
@@ -325,7 +349,6 @@
                         </div>
                     </a>
 
-                    <!-- Beginner -->
                     <a href="https://leoenglish-level-beginner.vercel.app" target="_blank" class="level-card level-beginner">
                         <div class="level-header">
                             <i class="fas fa-baby"></i> BEGINNER
@@ -337,7 +360,6 @@
                         </div>
                     </a>
 
-                    <!-- Pre-Intermediate -->
                     <a href="https://leoenglish-level-preintermediate.vercel.app" target="_blank" class="level-card level-pre">
                         <div class="level-header">
                             <i class="fas fa-chart-line"></i> PRE-INTERMEDIATE
@@ -349,7 +371,6 @@
                         </div>
                     </a>
 
-                    <!-- Intermediate -->
                     <a href="https://leoenglish-level-intermediate.vercel.app" target="_blank" class="level-card level-inter">
                         <div class="level-header">
                             <i class="fas fa-trophy"></i> INTERMEDIATE
@@ -364,7 +385,6 @@
             </div>
         </section>
 
-        <!-- Actions -->
         <div class="actions">
             <div class="container">
                 <div class="action-grid">
@@ -392,74 +412,177 @@
         </div>
     </footer>
 
+    <div id="loginModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10001; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 40px; border-radius: 24px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); position: relative; font-family: 'Poppins', sans-serif;">
+            <span onclick="closeLoginModal()" style="position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: #666;"><i class="fas fa-times"></i></span>
+            <h2 style="text-align: center; margin-bottom: 25px; color: #2C2C2C; font-family: 'Montserrat', sans-serif;">ĐĂNG NHẬP</h2>
+            <form id="firebaseLoginForm" onsubmit="executeFirebaseLogin(event)">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Tên đăng nhập / Username</label>
+                    <input type="text" id="loginUsername" required placeholder="Nhập tên đăng nhập được cấp..." style="width: 100%; padding: 12px 15px; border: 2px solid #E0E0E0; border-radius: 12px; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='#FF8C00'">
+                </div>
+                <div style="margin-bottom: 25px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Mật khẩu</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••" style="width: 100%; padding: 12px 15px; border: 2px solid #E0E0E0; border-radius: 12px; font-size: 1rem; outline: none; transition: 0.3s;" onfocus="this.style.borderColor='#FF8C00'">
+                </div>
+                <button type="submit" style="width: 100%; background: linear-gradient(135deg, #FFD700, #FF8C00); color: white; border: none; padding: 14px; font-size: 1.1rem; font-weight: 600; border-radius: 12px; cursor: pointer; box-shadow: 0 5px 15px rgba(255,140,0,0.3);">
+                    Đăng Nhập
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminTerminal" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 380px; background: #1E1E1E; color: #00FF00; font-family: 'Courier New', monospace; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 10002; overflow: hidden; border: 1px solid #333;">
+        <div style="background: #333; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; color: #FFF; font-size: 0.85rem;">
+            <span><i class="fas fa-terminal"></i> LEO ENGLISH - ADMIN TERMINAL</span>
+            <span onclick="toggleTerminal()" style="cursor: pointer; color: #FF5555;"><i class="fas fa-times-circle"></i></span>
+        </div>
+        <div id="terminalLog" style="padding: 15px; height: 180px; overflow-y: auto; font-size: 0.85rem; line-height: 1.4; border-bottom: 1px solid #333; color: #4ADE80;">
+            <div>[System] Terminal ready...</div>
+            <div>[System] Nhập thông tin để đẩy học viên mới lên Firebase.</div>
+        </div>
+        <form onsubmit="addStudentFromTerminal(event)" style="padding: 15px; background: #151515;">
+            <div style="margin-bottom: 10px;">
+                <span style="color: #FF8C00;">username:~$</span>
+                <input type="text" id="termUsername" placeholder="Ví dụ: hocvien01" required style="background: transparent; border: none; color: #00FF00; font-family: inherit; outline: none; width: 60%; font-size: 0.9rem;">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <span style="color: #FF8C00;">password:~$</span>
+                <input type="text" id="termPassword" placeholder="Mật khẩu" required style="background: transparent; border: none; color: #00FF00; font-family: inherit; outline: none; width: 60%; font-size: 0.9rem;">
+            </div>
+            <button type="submit" style="width: 100%; background: #00FF00; color: #000; border: none; padding: 8px; font-family: inherit; font-weight: bold; cursor: pointer; border-radius: 4px;">
+                EXECUTE (CẬP NHẬT)
+            </button>
+        </form>
+    </div>
+
+    <div onclick="toggleTerminal()" style="position: fixed; bottom: 20px; left: 20px; width: 40px; height: 40px; background: #1E1E1E; color: #00FF00; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10001; border: 1px solid #00FF00;" title="Mở Admin Terminal">
+        <i class="fas fa-code"></i>
+    </div>
+
     <script>
-        let clerk;
-        
-        async function initClerk() {
-            try {
-                clerk = new Clerk('pk_live_Y2xlcmsubGVvZW5nbGlzaC5wcm8udm4k');
-                await clerk.load();
-                updateUI();
-            } catch(e) {
-                console.log("Clerk init error (demo mode)", e);
+        // Cấu hình Firebase - THẦY THAY THÔNG TIN CỦA THẦY VÀO ĐÂY NHÉ:
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY_HERE",
+            authDomain: "YOUR_AUTH_DOMAIN_HERE",
+            projectId: "YOUR_PROJECT_ID_HERE",
+            storageBucket: "YOUR_STORAGE_BUCKET_HERE",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID_HERE",
+            appId: "YOUR_APP_ID_HERE"
+        };
+
+        // Khởi tạo ứng dụng sau khi trang load xong
+        window.onload = function() {
+            if (typeof firebase !== 'undefined') {
+                firebase.initializeApp(firebaseConfig);
+                
+                // Lắng nghe trạng thái đăng nhập từ Firebase
+                firebase.auth().onAuthStateChanged((user) => {
+                    const userSection = document.getElementById('user-section');
+                    if (user) {
+                        const displayName = user.email.split('@')[0];
+                        userSection.innerHTML = 
+                            <span style="margin-right: 15px;"><i class="fas fa-user-circle"></i> Xin chào, \</span>
+                            <button onclick="handleLogout()" style="background: #FF8C00; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-weight:600;">Đăng xuất</button>
+                        ;
+                    } else {
+                        userSection.innerHTML = 
+                            <button onclick="handleLogin()" style="background: white; color: #FF8C00; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer;">
+                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                            </button>
+                        ;
+                    }
+                });
+            }
+            createFireflies();
+        };
+
+        function handleLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        function executeFirebaseLogin(event) {
+            event.preventDefault();
+            let username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!username.includes('@')) {
+                username = username + "@leoenglish.edu.vn";
+            }
+
+            firebase.auth().signInWithEmailAndPassword(username, password)
+                .then(() => {
+                    alert("Đăng nhập thành công!");
+                    closeLoginModal();
+                    document.getElementById('firebaseLoginForm').reset();
+                })
+                .catch((error) => {
+                    alert("Tên đăng nhập hoặc mật khẩu không chính xác!");
+                });
+        }
+
+        function handleLogout() {
+            firebase.auth().signOut().then(() => {
+                alert("Đã đăng xuất tài khoản.");
+            });
+        }
+
+        function toggleTerminal() {
+            const term = document.getElementById('adminTerminal');
+            term.style.display = (term.style.display === 'none' || term.style.display === '') ? 'block' : 'none';
+        }
+
+        function printTerminalLog(text) {
+            const logDiv = document.getElementById('terminalLog');
+            if(logDiv) {
+                logDiv.innerHTML += <div>[\] \</div>;
+                logDiv.scrollTop = logDiv.scrollHeight;
             }
         }
 
-        function updateUI() {
-            const userSection = document.getElementById('user-section');
-            if (clerk && clerk.user) {
-                userSection.innerHTML = `
-                    <span>Xin chào, ${clerk.user.firstName || 'Học viên'}</span>
-                    <button onclick="clerk.signOut()" style="background: #FF8C00; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer;">Đăng xuất</button>
-                `;
-            }
+        function addStudentFromTerminal(event) {
+            event.preventDefault();
+            const username = document.getElementById('termUsername').value.trim();
+            const password = document.getElementById('termPassword').value.trim();
+            
+            printTerminalLog("Đang lưu học viên lên database: " + username + "...");
+
+            firebase.database().ref('students/' + username).set({
+                username: username,
+                password: password,
+                updatedAt: new Date().toISOString()
+            })
+            .then(() => {
+                printTerminalLog("<span style='color: #4ADE80;'>✓ Thành công! Dữ liệu đã đồng bộ.</span>");
+                document.getElementById('termUsername').value = '';
+                document.getElementById('termPassword').value = '';
+            })
+            .catch((err) => {
+                printTerminalLog("<span style='color: #FF5555;'>Lỗi: " + err.message + "</span>");
+            });
         }
 
-        async function handleLogin() {
-            if (!clerk) {
-                alert("Demo: Đăng nhập thành công.");
-                const userSection = document.getElementById('user-section');
-                userSection.innerHTML = `
-                    <span>Xin chào, Học viên</span>
-                    <button onclick="logoutDemo()" style="background: #FF8C00; color: white; border: none; padding: 8px 18px; border-radius: 30px; cursor: pointer;">Đăng xuất</button>
-                `;
-                return;
-            }
-            await clerk.openSignIn();
-        }
-
-        function logoutDemo() {
-            const userSection = document.getElementById('user-section');
-            userSection.innerHTML = `<button onclick="handleLogin()" style="background: white; color: #FF8C00; border: none; padding: 10px 20px; border-radius: 30px; font-weight: 600; cursor: pointer;"><i class="fas fa-sign-in-alt"></i> Đăng nhập</button>`;
-        }
-
-        // Hiệu ứng đom đóm
         function createFireflies() {
             const container = document.body;
             for (let i = 0; i < 25; i++) {
                 const fly = document.createElement('div');
                 fly.className = 'firefly';
-                
                 const size = 4 + Math.random() * 8;
-                fly.style.width = `${size}px`;
-                fly.style.height = `${size}px`;
-                
+                fly.style.width = \px;
+                fly.style.height = \px;
                 fly.style.left = Math.random() * 100 + 'vw';
                 fly.style.bottom = '-20px';
                 fly.style.opacity = 0.6 + Math.random() * 0.4;
-                
                 const duration = 12 + Math.random() * 18;
-                fly.style.animationDuration = `${duration}s`;
-                fly.style.animationDelay = `-${Math.random() * 15}s`;
-                
+                fly.style.animationDuration = \s;
+                fly.style.animationDelay = -\s;
                 container.appendChild(fly);
             }
         }
-
-        window.onload = function() {
-            initClerk();
-            createFireflies();
-        };
     </script>
 </body>
 </html>
