@@ -207,7 +207,7 @@
             border-color: var(--highlight);
         }
 
-        /* Tối ưu hóa Mobile Menu dạng Dropdown mượt mà */
+        /* Dropdown Menu Chuyên Nghiệp trên Mobile */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -215,20 +215,21 @@
             width: 100%;
             height: auto;
             max-height: 100vh;
-            background: rgba(5, 8, 22, 0.95);
+            background: rgba(5, 8, 22, 0.96);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 999;
-            padding: 100px 24px 40px 24px;
+            padding: 90px 24px 32px 24px;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
             transform: translateY(-100%);
             opacity: 0;
             visibility: hidden;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            overflow-y: auto;
         }
 
         .mobile-menu.active {
@@ -239,11 +240,11 @@
 
         .mobile-menu a {
             color: #CBD5E1;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 500;
             text-decoration: none;
-            padding: 14px 24px;
-            border-radius: 16px;
+            padding: 12px 20px;
+            border-radius: 14px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
@@ -255,7 +256,18 @@
             background: rgba(79, 70, 229, 0.2);
             border-color: rgba(34, 211, 238, 0.3);
             box-shadow: 0 0 20px rgba(79, 70, 229, 0.2);
-            transform: scale(1.02);
+        }
+
+        /* Mobile User Section Container */
+        .mobile-user-wrap {
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
         }
 
         /* Hero Section */
@@ -663,29 +675,56 @@
             
             /* Sửa đổi lỗi hiển thị thanh Nav trên điện thoại */
             nav { 
-                padding: 12px 18px; 
+                padding: 12px 20px; 
                 margin: 12px auto; 
-                width: calc(100% - 24px);
+                width: calc(100% - 8px);
                 top: 12px;
-                gap: 10px;
             }
-            .logo { font-size: 20px; gap: 8px; }
+            .logo { font-size: 21px; gap: 8px; }
             .nav-links { display: none; }
+            .user-info { display: none; } /* Ẩn vùng user góc phải của PC để tránh bị lệch dòng */
             .hamburger { display: flex; }
             
-            /* Tinh chỉnh phần nút login / thông tin user góc phải trên mobile */
-            .user-info button {
-                padding: 8px 16px !important;
-                font-size: 0.85rem !important;
+            /* Căn giữa hoàn hảo phần Hero content trên Mobile */
+            .hero { 
+                padding: 60px 0 80px; 
+                gap: 32px; 
+                flex-direction: column; 
+                align-items: center; 
+                text-align: center; 
             }
-            .user-info span {
-                font-size: 0.85rem !important;
-                margin-right: 4px !important;
+            .avatar-container {
+                margin: 0 auto;
+                width: 220px;
+                height: 220px;
             }
-            
-            .hero { padding: 80px 0 100px; gap: 40px; }
-            .avatar-container, .avatar { width: 220px; height: 220px; }
-            .section-title { font-size: 2.4rem; }
+            .avatar { 
+                width: 220px; 
+                height: 220px; 
+            }
+            .hero-content {
+                width: 100%;
+                min-width: unset;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-content h1 {
+                font-size: 2.3rem;
+                margin-bottom: 1.2rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+                margin: 0 auto 2rem auto;
+            }
+            .hero-content button {
+                padding: 16px 36px !important;
+                font-size: 1.1rem !important;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .section-title { font-size: 2.3rem; }
             .levels-grid, .zoom-grid { grid-template-columns: 1fr; gap: 24px; }
             .action-grid { grid-template-columns: 1fr; gap: 18px; }
             .action-btn { padding: 18px 24px; font-size: 1.1rem; }
@@ -727,6 +766,8 @@
             <a href="#levels" onclick="toggleMobileMenu()">Chương trình học</a>
             <a href="#" onclick="toggleMobileMenu()">Tin tức</a>
             <a href="#" onclick="toggleMobileMenu()">Liên hệ</a>
+            <!-- Vùng hiển thị User / Đăng nhập chuyên biệt cho Mobile nằm trong Drop menu -->
+            <div id="mobile-user-section" class="mobile-user-wrap"></div>
         </div>
 
         <div class="hero">
@@ -962,17 +1003,37 @@
                 
                 firebase.auth().onAuthStateChanged((user) => {
                     const userSection = document.getElementById('user-section');
+                    const mobileUserSection = document.getElementById('mobile-user-section');
+                    
                     if (user) {
                         const displayName = user.email ? user.email.split('@')[0] : 'User';
+                        
+                        // Nội dung hiển thị trên Desktop (PC)
                         userSection.innerHTML = `
                             <span style="margin-right: 16px; display: flex; align-items: center; gap: 8px; color:#FFF; font-weight:600;">
                                 <i class="fas fa-user-circle" style="color:#22D3EE;"></i> ${displayName}
                             </span>
-                            <button onclick="handleLogout()" style="background: transparent; color: #22D3EE; border: 1px solid #22D3EE; padding: 8px 20px; border-radius: 9999px; cursor: pointer; font-weight: 500; box-shadow: inset 0 0 10px rgba(34,211,238,0.15); transition: 0.3s;" onhover="this.style.boxShadow='0 0 15px #22D3EE'">Đăng xuất</button>
+                            <button onclick="handleLogout()" style="background: transparent; color: #22D3EE; border: 1px solid #22D3EE; padding: 8px 20px; border-radius: 9999px; cursor: pointer; font-weight: 500; box-shadow: inset 0 0 10px rgba(34,211,238,0.15); transition: 0.3s;">Đăng xuất</button>
+                        `;
+                        
+                        // Nội dung hiển thị ẩn trong Dropdown menu trên Mobile (Đăng xuất dưới tên user)
+                        mobileUserSection.innerHTML = `
+                            <span style="display: flex; align-items: center; gap: 8px; color:#FFF; font-weight:600; font-size: 1.1rem; margin-bottom: 4px;">
+                                <i class="fas fa-user-circle" style="color:#22D3EE; font-size: 1.3rem;"></i> ${displayName}
+                            </span>
+                            <button onclick="handleLogout(); toggleMobileMenu();" style="background: transparent; color: #F87171; border: 1px solid #F87171; padding: 10px 32px; border-radius: 9999px; cursor: pointer; font-weight: 600; font-size: 1rem; width: 100%; max-width: 240px; transition: 0.3s; box-shadow: inset 0 0 10px rgba(248,113,113,0.1);">Đăng xuất</button>
                         `;
                     } else {
+                        // Trạng thái chưa đăng nhập trên PC
                         userSection.innerHTML = `
                             <button onclick="handleLogin()" style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 10px 24px; border-radius: 9999px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(79,70,229,0.35);">
+                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                            </button>
+                        `;
+                        
+                        // Trạng thái chưa đăng nhập ẩn trong Dropdown menu trên Mobile
+                        mobileUserSection.innerHTML = `
+                            <button onclick="handleLogin(); toggleMobileMenu();" style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 12px 32px; border-radius: 9999px; font-weight: 600; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; max-width: 240px; box-shadow: 0 4px 15px rgba(79,70,229,0.35);">
                                 <i class="fas fa-sign-in-alt"></i> Đăng nhập
                             </button>
                         `;
