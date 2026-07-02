@@ -870,7 +870,7 @@
 
     <div id="adminTerminal">
         <div style="background: #0f172a; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; color: #CBD5E1; font-size: 0.9rem; border-bottom: 1px solid rgba(34, 211, 238, 0.2);">
-            <span><i class="fas fa-terminal"></i> LEO ENGLISH ADMIN</span>
+            <span><i class="fas fa-terminal"></i> LEO ENGLISH HUB ADMIN</span>
             <span onclick="toggleTerminal()" style="cursor: pointer; color: #F87171;"><i class="fas fa-times"></i></span>
         </div>
         <div id="terminalLog" style="padding: 20px; height: 200px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.85rem; line-height: 1.5; background: #030712; color: #67E8F9;">
@@ -895,14 +895,15 @@
     </div>
 
     <script>
-        // Firebase Config
+        // Firebase Config đồng bộ từ Database thực tế của Leo English Hub
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY_HERE",
-            authDomain: "YOUR_AUTH_DOMAIN_HERE",
-            projectId: "YOUR_PROJECT_ID_HERE",
-            storageBucket: "YOUR_STORAGE_BUCKET_HERE",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID_HERE",
-            appId: "YOUR_APP_ID_HERE"
+            apiKey: "AIzaSyBr5WUp7m6kEfzJur4HLqEMS6vCDKhgjyA",
+            authDomain: "leo-english-hub.firebaseapp.com",
+            projectId: "leo-english-hub",
+            storageBucket: "leo-english-hub.firebasestorage.app",
+            messagingSenderId: "297427422584",
+            appId: "1:297427422584:web:258d3422070fd49dcecc8d",
+            databaseURL: "https://leo-english-hub-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
 
         let app;
@@ -943,8 +944,9 @@
             let username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
 
+            // Cơ chế tự động thêm hậu tố email phù hợp với tài khoản cấp bởi admin trên firebase
             if (!username.includes('@')) {
-                username = username + "@leoenglish.edu.vn";
+                username = username + "@leoenglishhub.com";
             }
 
             firebase.auth().signInWithEmailAndPassword(username, password)
