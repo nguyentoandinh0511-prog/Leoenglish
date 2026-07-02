@@ -1,1166 +1,402 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#CCFF00">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leo English - Tiếng Anh Chuyên Nghiệp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
+    <title>GEN WISE LANGUAGE HUB</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #CCFF00; /* Vàng neon cực sáng */
-            --secondary: #E5FF66; /* Vàng neon sáng vừa */
-            --accent: #FFFF00; /* Vàng chanh thuần */
-            --highlight: #D4FF00; /* Điểm nhấn vàng neon */
-            --dark: #0A0F00;
-            --glass: rgba(255, 255, 255, 0.04);
-            --border: rgba(204, 255, 0, 0.15);
-            --neon-glow: 0 0 25px rgba(204, 255, 0, 0.45), 0 0 50px rgba(212, 255, 0, 0.25);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', system_ui, sans-serif;
-            background: #060800; /* Nền tối ánh sắc rêu vàng sâu thẳm */
-            color: #F4FFE0;
-            overflow-x: hidden;
+            margin: 0;
             min-height: 100vh;
-            position: relative;
+            background: linear-gradient(135deg, #FFF9E6, #FFE4B5, #FFFFFF);
+            font-family: 'Poppins', sans-serif;
+            color: #000000;
+            overflow-x: hidden;
         }
-
-        /* Dynamic Background */
-        .bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        .gradient-mesh {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 15% 25%, rgba(204, 255, 0, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 85% 75%, rgba(229, 255, 102, 0.15) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.12) 0%, transparent 50%);
-            animation: mesh-shift 20s ease infinite alternate;
-            z-index: -1;
-        }
-
-        @keyframes mesh-shift {
-            0% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
-            50% { transform: scale(1.1) translate(40px, -20px) rotate(3deg); }
-            100% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
-        }
-
-        /* Enhanced Floating Orbs */
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.18;
-            z-index: -1;
-            animation: floatOrb 25s infinite linear;
-        }
-
-        .orb1 { width: 700px; height: 700px; background: #CCFF00; top: -15%; left: -10%; animation-delay: 0s; }
-        .orb2 { width: 900px; height: 900px; background: #E5FF66; bottom: -15%; right: -15%; animation-delay: -8s; }
-        .orb3 { width: 600px; height: 600px; background: #FFFF00; top: 35%; right: 5%; animation-delay: -16s; }
-
-        @keyframes floatOrb {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(100px, -80px) scale(1.15); }
-            100% { transform: translate(0, 0) scale(1); }
-        }
-
         .container {
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
-            position: relative;
-            z-index: 2;
+            padding: 20px;
         }
-
-        /* ====================== NAVBAR ====================== */
         nav {
-            background: rgba(6, 8, 0, 0.65);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(204, 255, 0, 0.2);
-            padding: 16px 32px;
+            background: linear-gradient(135deg, #FFD700, #FF8C00);
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 9999px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255,255,255,0.05);
-            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
             position: sticky;
-            top: 16px;
+            top: 6px;
             z-index: 1000;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        nav:hover {
-            border-color: rgba(212, 255, 0, 0.6);
-            box-shadow: 0 20px 40px rgba(204, 255, 0, 0.25), 0 0 30px rgba(229, 255, 102, 0.15);
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 28px;
+        nav .logo {
+            font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            background: linear-gradient(90deg, #CCFF00, #FFFF00, #E5FF66);
-            background-size: 200% auto;
-            animation: shineText 4s linear infinite;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
+            font-size: 20px;
+            color: #FFFFFF;
+            letter-spacing: 1px;
         }
-
-        @keyframes shineText {
-            to { background-position: 200% center; }
-        }
-
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 1.5rem;
             align-items: center;
         }
-
         .nav-links a {
-            color: #D4E2C6;
             text-decoration: none;
+            color: #FFFFFF;
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            position: relative;
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
         }
-
         .nav-links a:hover {
-            color: #FFF;
-            text-shadow: 0 0 12px rgba(212, 255, 0, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFF9E6;
+            transform: translateY(-2px);
         }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            box-shadow: 0 0 8px var(--highlight);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Hamburger Menu */
-        .hamburger {
+        .nav-toggle {
             display: none;
-            font-size: 1.4rem;
-            color: #F4FFE0;
+            background: none;
+            border: none;
             cursor: pointer;
-            z-index: 1001;
-            width: 40px;
-            height: 40px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(204, 255, 0, 0.2);
-            transition: all 0.3s;
+            padding: 10px;
         }
-        
-        .hamburger:hover {
-            background: rgba(204, 255, 0, 0.1);
-            border-color: var(--highlight);
-            box-shadow: 0 0 10px var(--highlight);
-        }
-
-        /* Dropdown Menu Chuyên Nghiệp trên Mobile */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: auto;
-            max-height: 100vh;
-            background: rgba(6, 8, 0, 0.98);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(204, 255, 0, 0.2);
-            z-index: 999;
-            padding: 90px 24px 32px 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.9);
-            overflow-y: auto;
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-menu a {
-            color: #D4E2C6;
-            font-size: 1.15rem;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(204, 255, 0, 0.1);
+        .nav-toggle span,
+        .nav-toggle span::before,
+        .nav-toggle span::after {
+            display: block;
+            background: #FFFFFF;
+            height: 3px;
+            width: 25px;
+            border-radius: 3px;
+            position: relative;
             transition: all 0.3s ease;
-            text-align: center;
+        }
+        .nav-toggle span::before,
+        .nav-toggle span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+        .nav-toggle span::before { top: -8px; }
+        .nav-toggle span::after { top: 8px; }
+        .nav-toggle.open span { background: transparent; }
+        .nav-toggle.open span::before { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-toggle.open span::after { transform: rotate(-45deg) translate(5px, -5px); }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute; top: 70px; right: 20px;
+                background: linear-gradient(135deg, #FFD700, #FF8C00);
+                flex-direction: column; align-items: flex-start; padding: 1.5rem;
+                border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,.2); display: none; width: 200px;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { width: 100%; text-align: center; padding: 10px; font-size: 14px; }
+            .nav-toggle { display: block; }
         }
 
-        .mobile-menu a:hover {
-            color: #FFF;
-            background: rgba(204, 255, 0, 0.15);
-            border-color: rgba(212, 255, 0, 0.5);
-            box-shadow: 0 0 20px rgba(204, 255, 0, 0.25);
+        h1 { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 700; color: #000; margin-bottom: .2rem; text-align: center; }
+        h2 { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 500; color: #000; margin-top: .2rem; margin-bottom: 1.8rem; text-align: center; }
+
+        .unit-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .unit {
+            background: linear-gradient(135deg, #FFF9E6, #FFE4B5, #FFFFFF);
+            padding: 2rem; border-radius: 15px; border: 2px solid #FFD700;
+            box-shadow: 0 6px 12px rgba(0,0,0,.1); cursor: pointer;
+            transition: transform .3s, box-shadow .3s; text-align: center; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between; 
+        }
+        .unit:hover { transform: scale(1.03); box-shadow: 0 8px 16px rgba(0,0,0,.15); }
+
+        .zodiac-box {
+            position: relative; width: 80px; height: 80px; margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #FFD700, #FF8C00); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 700; color: #FFF;
+            box-shadow: 0 4px 8px rgba(0,0,0,.2); overflow: hidden;
+        }
+        .theme-icon {
+            position: absolute; font-size: 28px; color: rgba(255,255,255,0.7);
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
         }
 
-        /* Mobile User Section Container */
-        .mobile-user-wrap {
-            margin-top: 8px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(204, 255, 0, 0.2);
+        .unit a { text-decoration: none; color: #000; font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; display: block; }
+        .unit a:hover { color: #FF8C00; }
+        .unit p { font-family: 'Poppins', sans-serif; font-size: 16px; color: #333; margin: .5rem 0; }
+        .unit-icon, .vocab-icon { color: #FF8C00; margin-right: 8px; font-size: 20px; vertical-align: middle; }
+        .vocabulary { display: flex; align-items: center; justify-content: center; margin-top: 10px; }
+        .vocabulary a { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 500; color: #FF8C00; text-transform: uppercase; text-decoration: none; }
+        .vocabulary a:hover { color: #FFD700; }
+
+        .game-section {
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 140, 0, 0.3);
+            padding-top: 1.5rem;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 12px;
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
             align-items: center;
-            gap: 80px;
-            padding: 120px 0 160px;
-            flex-wrap: wrap;
         }
 
-        .avatar-container {
+        .game-link, .dialogue-link {
             position: relative;
-            width: 280px;
-            height: 280px;
-            flex-shrink: 0;
-        }
-
-        .avatar {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            background: url('ava.png') center/cover;
-            box-shadow: 
-                0 0 0 8px rgba(204, 255, 0, 0.15),
-                0 0 40px rgba(204, 255, 0, 0.5),
-                0 0 70px rgba(212, 255, 0, 0.3),
-                inset 0 0 30px rgba(255,255,255,0.2);
-            position: relative;
-            z-index: 2;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .avatar:hover {
-            transform: scale(1.06) rotate(2deg);
-            box-shadow: 
-                0 0 0 12px rgba(204, 255, 0, 0.25),
-                0 0 60px rgba(204, 255, 0, 0.7),
-                0 0 100px rgba(212, 255, 0, 0.6);
-        }
-
-        .glow-ring {
-            position: absolute;
-            inset: -35px;
-            border-radius: 50%;
-            background: conic-gradient(
-                transparent 20deg,
-                #CCFF00 70deg,
-                #D4FF00 150deg,
-                #FFFF00 230deg,
-                transparent 300deg
-            );
-            animation: rotate-glow 8s linear infinite;
-            z-index: 1;
-            filter: blur(14px);
-            opacity: 0.9;
-        }
-
-        @keyframes rotate-glow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hero-content h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            padding: 10px 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
             font-weight: 700;
-            line-height: 1.1;
-            background: linear-gradient(135deg, #FFF 30%, #F4FFE0, #CCFF00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 40px rgba(204, 255, 0, 0.2);
-        }
-
-        .hero-content p {
-            font-size: 1.35rem;
-            color: #A3B294;
-            max-width: 520px;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-        }
-
-        /* ====================== PREMIUM GLOW CARDS ====================== */
-        .levels, .zoom-courses {
-            padding: 120px 0;
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 700;
-            font-family: 'Space Grotesk', sans-serif;
-            background: linear-gradient(90deg, #FFF, #F4FFE0, #CCFF00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 30px rgba(204, 255, 0, 0.25);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.25rem;
-            color: #6C7A5E;
-            max-width: 620px;
-            margin: 0 auto 4rem;
-        }
-
-        .levels-grid, .zoom-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-
-        @media (min-width: 1200px) {
-            .levels-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-        @media (max-width: 1199px) and (min-width: 768px) {
-            .levels-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* Glow Card Container */
-        .level-card, .course-card {
-            background: linear-gradient(135deg, rgba(204, 255, 0, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border: 1px solid rgba(204, 255, 0, 0.12);
-            border-radius: 28px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
-            color: inherit;
+            color: #FFFFFF;
+            text-transform: uppercase;
             text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.8);
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.6);
+            transition: all 0.3s ease;
         }
-
-        .level-card::before, .course-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(204, 255, 0, 0.08), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
-            z-index: 1;
+        .game-link {
+            background: linear-gradient(45deg, #FF8C00, #FFD700);
         }
-
-        /* Khi di chuột: Ánh sáng dày quầng Neon Vàng rực rỡ */
-        .level-card:hover, .course-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            background: linear-gradient(135deg, rgba(204, 255, 0, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
-            border-color: rgba(204, 255, 0, 0.45);
-            box-shadow: 
-                0 20px 40px -15px rgba(0, 0, 0, 0.9),
-                0 0 35px -5px var(--card-glow, rgba(204, 255, 0, 0.6)),
-                inset 0 1px 2px rgba(204, 255, 0, 0.3);
+        .dialogue-link {
+            background: linear-gradient(45deg, #00C9FF, #92FE9D);
+            animation: pulse-glow 2s infinite alternate;
         }
-
-        .level-card:hover::before, .course-card:hover::before {
-            transform: translateX(100%);
+        .game-link:hover, .dialogue-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 25px rgba(255, 140, 0, 1);
         }
-
-        /* Thiết lập màu hào quang đặc trưng với tone vàng neon làm chủ đạo */
-        .level-starter { --card-glow: rgba(204, 255, 0, 0.5); }
-        .level-beginner { --card-glow: rgba(229, 255, 0, 0.55); }
-        .level-pre { --card-glow: rgba(242, 255, 100, 0.5); }
-        .level-inter { --card-glow: rgba(180, 255, 0, 0.6); }
-        .course-card { --card-glow: rgba(204, 255, 0, 0.45); }
-
-        .level-header {
-            padding: 32px 24px 20px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .level-icon, .course-icon {
-            width: 78px;
-            height: 78px;
-            margin: 0 auto 16px;
-            background: rgba(204, 255, 0, 0.05);
-            border: 1px solid rgba(204, 255, 0, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: inset 0 2px 4px rgba(255,255,255,0.02);
-        }
-
-        .level-card:hover .level-icon, .course-card:hover .course-icon {
-            transform: translateY(-8px) scale(1.1);
-            background: rgba(204, 255, 0, 0.2);
-            border-color: currentColor;
-            box-shadow: 0 0 25px currentColor;
-        }
-
-        .level-starter .level-icon { color: #D4FF00; }
-        .level-beginner .level-icon { color: #EEFF41; }
-        .level-pre .level-icon { color: #CCFF00; }
-        .level-inter .level-icon { color: #AEEA00; }
-        .course-icon { color: #CCFF00; }
-
-        .level-header h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.55rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            transition: text-shadow 0.3s;
-        }
-
-        .level-card:hover h3 {
-            text-shadow: 0 0 10px rgba(204, 255, 0, 0.8);
-        }
-
-        .level-body, .course-body {
-            padding: 0 28px 32px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 2;
-        }
-
-        .level-body p, .course-body p {
-            color: #A3B294;
-            line-height: 1.65;
-            margin-bottom: 2rem;
-            flex-grow: 1;
-        }
-
-        .level-units {
-            font-size: 0.95rem;
-            padding: 8px 20px;
-            border-radius: 9999px;
-            background: rgba(204, 255, 0, 0.08);
-            border: 1px solid rgba(204, 255, 0, 0.15);
-            color: #E2F0D5;
-            font-weight: 500;
-            align-self: flex-start;
-            transition: all 0.3s;
-        }
-
-        .level-card:hover .level-units {
-            background: rgba(204, 255, 0, 0.25);
-            color: #FFF;
-            border-color: rgba(204, 255, 0, 0.5);
-            box-shadow: 0 0 10px rgba(204, 255, 0, 0.2);
-        }
-
-        /* Course Card Special Design */
-        .course-header {
-            padding: 32px 24px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(204, 255, 0, 0.1), rgba(255, 255, 0, 0.05));
-            border-bottom: 1px solid rgba(204, 255, 0, 0.15);
-        }
-
-        .course-body {
-            padding-top: 24px;
-        }
-
-        .course-body .title-vi {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 6px;
-        }
-
-        .course-body .title-en {
-            font-size: 1rem;
-            color: #798A66;
-            margin-bottom: 18px;
-            font-weight: 500;
-        }
-
-        /* Action Buttons với Hiệu Ứng Quét Sáng Mạnh */
-        .actions {
-            padding: 100px 0;
-            position: relative;
-        }
-
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .action-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 14px;
-            padding: 22px 32px;
-            border-radius: 20px;
-            font-size: 1.15rem;
+        .game-icon { margin-right: 10px; font-size: 20px; color: #FFFFFF; }
+    
+        /* SIMPLE USER DISPLAY */
+        .simple-user-display {
+            background: rgba(255, 255, 255, 0.18);
+            color: #FFFFFF;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 600;
-            text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(204, 255, 0, 0.3);
-            color: #060800; /* Đổi text thành màu tối để nổi bật trên nền vàng sáng */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
-            transform: skewX(-25deg);
-            transition: 0.7s;
-        }
-
-        .action-btn:hover::before {
-            left: 250%;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(204, 255, 0, 0.4), 0 0 25px rgba(255,255,255,0.3);
-            border-color: rgba(255,255,255,0.6);
-            color: #000;
-        }
-
-        /* Nền Gradient theo sắc vàng neon rực rỡ khác nhau */
-        .btn-register { background: linear-gradient(135deg, #AEEA00, #CCFF00); }
-        .btn-software { background: linear-gradient(135deg, #C6FF00, #E5FF66); }
-        .btn-zalo { background: linear-gradient(135deg, #D4FF00, #FFFF00); }
-
-        /* Footer */
-        footer {
-            background: #030400;
-            border-top: 1px solid rgba(204, 255, 0, 0.1);
-            color: #5C694F;
-            padding: 60px 0 40px;
             text-align: center;
-            font-size: 0.95rem;
+            border: 1px solid rgba(255,255,255,0.25);
+            margin-left: 12px;
+            display: none; /* Khởi tạo ẩn, chỉ hiện khi đã kiểm tra đăng nhập */
+        }
+        .simple-user-display .user-name {
+            display: block;
+            margin-bottom: 8px;
+        }
+        .simple-user-display .signout-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .simple-user-display .signout-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-1px);
         }
 
-        footer p { margin-bottom: 8px; }
-
-        /* Modals & Terminal */
-        #loginModal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(3, 4, 0, 0.9);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            z-index: 10001;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #adminTerminal {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 400px;
-            background: #050800;
-            border: 1px solid rgba(204, 255, 0, 0.4);
-            border-radius: 20px;
-            box-shadow: var(--neon-glow);
-            overflow: hidden;
-            z-index: 10002;
-        }
-
-        /* Fireflies Vàng Neon rực sáng */
-        .firefly {
-            position: fixed;
-            background: radial-gradient(circle, #FFFFFF 20%, #CCFF00 60%, transparent 100%);
-            border-radius: 50%;
-            box-shadow: 0 0 20px #CCFF00, 0 0 40px rgba(204, 255, 0, 0.6);
-            pointer-events: none;
-            z-index: 999;
-            animation: firefly-rise linear infinite;
-        }
-
-        @keyframes firefly-rise {
-            0% { transform: translateY(120vh) translateX(0) scale(0.6); opacity: 0.8; }
-            50% { transform: translateY(50vh) translateX(30px) scale(1); opacity: 1; }
-            100% { transform: translateY(-80px) translateX(-20px) scale(0.8); opacity: 0; }
-        }
-
-        /* ====================== RESPONSIVE SYSTEM ====================== */
-        @media (max-width: 767px) {
-            .container { padding: 0 16px; }
-            nav { 
-                padding: 12px 20px; 
-                margin: 12px auto; 
-                width: calc(100% - 8px);
-                top: 12px;
+        @media (max-width: 768px) {
+            .simple-user-display {
+                font-size: 15.5px;
+                padding: 14px 16px;
+                margin-left: 8px;
             }
-            .logo { font-size: 21px; gap: 8px; }
-            .nav-links { display: none; }
-            .user-info { display: none; }
-            .hamburger { display: flex; }
-            
-            .hero { 
-                padding: 60px 0 80px; 
-                gap: 32px; 
-                flex-direction: column; 
-                align-items: center; 
-                text-align: center; 
-            }
-            .avatar-container {
-                margin: 0 auto;
-                width: 220px;
-                height: 220px;
-            }
-            .avatar { 
-                width: 220px; 
-                height: 220px; 
-            }
-            .hero-content {
-                width: 100%;
-                min-width: unset;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .hero-content h1 {
-                font-size: 2.3rem;
-                margin-bottom: 1.2rem;
-            }
-            .hero-content p {
-                font-size: 1.1rem;
-                margin: 0 auto 2rem auto;
-            }
-            .hero-content button {
-                padding: 16px 36px !important;
-                font-size: 1.1rem !important;
-                width: 100%;
-                max-width: 280px;
-            }
-
-            .section-title { font-size: 2.3rem; }
-            .levels-grid, .zoom-grid { grid-template-columns: 1fr; gap: 24px; }
-            .action-grid { grid-template-columns: 1fr; gap: 18px; }
-            .action-btn { padding: 18px 24px; font-size: 1.1rem; }
-            #adminTerminal { width: 92%; right: 4%; bottom: 80px; }
         }
     </style>
-    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <div class="bg-canvas">
-        <div class="gradient-mesh"></div>
-        <div class="orb orb1"></div>
-        <div class="orb orb2"></div>
-        <div class="orb orb3"></div>
-    </div>
-
-    <div class="container">
-        <nav>
-            <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
-                LEO ENGLISH
+<div class="container">
+    <nav>
+        <div class="logo">GEN WISE LANGUAGE HUB</div>
+        <button class="nav-toggle" aria-label="Toggle navigation"><span></span></button>
+        <div class="nav-links">
+            <!-- Simple User Display -->
+            <div class="simple-user-display" id="simpleUserDisplay">
+                <span class="user-name" id="userNameDisplay">Loading...</span>
+                <button class="signout-btn" id="signOutBtnSimple">Sign Out</button>
             </div>
-            <div class="nav-links">
-                <a href="#">Trang chủ</a>
-                <a href="#">Giới thiệu</a>
-                <a href="#levels">Chương trình học</a>
-                <a href="#">Tin tức</a>
-                <a href="#">Liên hệ</a>
-            </div>
-            <div id="user-section" class="user-info"></div>
-            <div class="hamburger" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
-            </div>
-        </nav>
-
-        <div id="mobileMenu" class="mobile-menu">
-            <a href="#" onclick="toggleMobileMenu()">Trang chủ</a>
-            <a href="#" onclick="toggleMobileMenu()">Giới thiệu</a>
-            <a href="#levels" onclick="toggleMobileMenu()">Chương trình học</a>
-            <a href="#" onclick="toggleMobileMenu()">Tin tức</a>
-            <a href="#" onclick="toggleMobileMenu()">Liên hệ</a>
-            <div id="mobile-user-section" class="mobile-user-wrap"></div>
+            <a href="index.html">Home</a>
+            <a href="gioi thieu.html">About</a>
+            <a href="contact.html">Contact</a>
         </div>
+    </nav>
 
-        <div class="hero">
-            <div class="avatar-container">
-                <div class="glow-ring"></div>
-                <div class="avatar"></div>
-            </div>
-            <div class="hero-content">
-                <h1>Let’s upgrade <br> your language</h1>
-                <p>Tiếng Anh hiện đại với chương trình học theo cấp độ, công nghệ tương tác và phương pháp dạy học tiên tiến.</p>
-                <button onclick="document.getElementById('levels').scrollIntoView({ behavior: 'smooth' })" 
-                        style="background: linear-gradient(90deg, #CCFF00, #FFFF00); color: #060800; border: none; padding: 20px 48px; font-size: 1.25rem; font-weight: 700; border-radius: 9999px; cursor: pointer; box-shadow: var(--neon-glow); transition: all 0.3s ease;">
-                    Khám phá các cấp độ
-                </button>
-            </div>
-        </div>
+    <h1>GEN WISE LANGUAGE HUB</h1>
+    <h2>Learning Units</h2>
 
-        <section id="levels" class="levels">
-            <div class="container">
-                <h2 class="section-title">Các Cấp Độ Học Tập</h2>
-                <p class="section-subtitle">Chọn lộ trình phù hợp với trình độ hiện tại và mục tiêu của bạn</p>
-                
-                <div class="levels-grid">
-                    <a href="https://leoenglish-level-starter.vercel.app" target="_blank" class="level-card level-starter">
-                        <div class="level-header">
-                            <div class="level-icon"><i class="fas fa-seedling"></i></div>
-                            <h3>STARTER</h3>
-                        </div>
-                        <div class="level-body">
-                            <p>Xây dựng nền tảng tiếng Anh từ những kiến thức cơ bản nhất với phương pháp học vui vẻ.</p>
-                            <div class="level-units">24 Units • 80+ Bài học</div>
-                        </div>
-                    </a>
+    <div class="unit-list">
+        <script>
+            // Giữ lại chính xác 24 bài học của Beginner
+            const units = [
+                { id: 1, title: "At the Bank", desc: "tại ngân hàng", icon: "fa-university" },
+                { id: 2, title: "Shopping for Clothes", desc: "mua sắm quần áo", icon: "fa-tshirt" },
+                { id: 3, title: "Social Media and Technology", desc: "mạng xã hội và công nghệ", icon: "fa-laptop" },
+                { id: 4, title: "Invitations and Making Plans", desc: "mời và hẹn gặp", icon: "fa-envelope" },
+                { id: 5, title: "Expressing Emotions", desc: "diễn đạt cảm xúc", icon: "fa-heart" },
+                { id: 6, title: "Daily News and Entertainment", desc: "tin tức và giải trí hàng ngày", icon: "fa-newspaper" },
+                { id: 7, title: "Emergencies and Asking for Help", desc: "khẩn cấp và gọi trợ giúp", icon: "fa-phone-volume" },
+                { id: 8, title: "Traveling", desc: "đi du lịch", icon: "fa-plane" },
+                { id: 9, title: "Time Management", desc: "quản lý thời gian", icon: "fa-clock" },
+                { id: 10, title: "Holistic Health", desc: "chăm sức khỏe toàn diện", icon: "fa-heartbeat" },
+                { id: 11, title: "Online Business", desc: "kinh doanh trực tuyến", icon: "fa-shopping-cart" },
+                { id: 12, title: "Job Interview", desc: "phỏng vấn xin việc", icon: "fa-briefcase" },
+                { id: 13, title: "Personal Growth", desc: "sức khỏe tâm thần", icon: "fa-brain" },
+                { id: 14, title: "Mental Health Care", desc: "chăm sóc sức khỏe tâm thần", icon: "fa-balance-scale" },
+                { id: 15, title: "At the Airport", desc: "tại sân bay", icon: "fa-plane-departure" },
+                { id: 16, title: "At the Metro and Bus Station", desc: "tại metro và xe buýt", icon: "fa-subway" },
+                { id: 17, title: "Friendship and Social Connection", desc: "tình bạn và kết nối xã hội", icon: "fa-user-friends" },
+                { id: 18, title: "At the Coffee Shop", desc: "tại quán cà phê", icon: "fa-coffee" },
+                { id: 19, title: "Embracing Minimalism", desc: "sống tối giản", icon: "fa-trash-alt" },
+                { id: 20, title: "At Work", desc: "đi làm", icon: "fa-building" },
+                { id: 21, title: "Shopping for Gifts", desc: "mua sắm quà tặng", icon: "fa-gift" },
+                { id: 22, title: "Beauty and Self-care", desc: "làm đẹp và chăm sóc bản thân", icon: "fa-spa" },
+                { id: 23, title: "Using E-Wallets", desc: "dùng ví điện tử", icon: "fa-mobile-alt" },
+                { id: 24, title: "Weddings and Family", desc: "cưới hỏi và gia đình", icon: "fa-ring" }
+            ];
 
-                    <a href="https://leoenglish-level-beginner.vercel.app" target="_blank" class="level-card level-beginner">
-                        <div class="level-header">
-                            <div class="level-icon"><i class="fas fa-baby"></i></div>
-                            <h3>BEGINNER</h3>
+            units.forEach(unit => {
+                document.write(`
+                    <div class="unit">
+                        <div>
+                            <div class="zodiac-box"><span>${unit.id}</span><i class="fas ${unit.icon} theme-icon"></i></div>
+                            <a href="UNITS/UNIT-${unit.id}/full.html"><i class="fas ${unit.icon} unit-icon"></i>Unit ${unit.id}: ${unit.title}</a>
+                            <p>${unit.desc}</p>
+                            <div class="vocabulary"><i class="fas fa-book vocab-icon"></i><a href="UNITS/UNIT-${unit.id}/vocabulary.html">VOCABULARY</a></div>
                         </div>
-                        <div class="level-body">
-                            <p>Phát triển kỹ năng giao tiếp cơ bản trong các tình huống thực tế hàng ngày.</p>
-                            <div class="level-units">24 Units • 80+ Bài học</div>
+                        <div class="game-section">
+                            <a href="UNITS/UNIT-${unit.id}/game.html" class="game-link">
+                                <i class="fas ${unit.icon} game-icon"></i>Game
+                            </a>
+                            <a href="UNITS/UNIT-${unit.id}/dialogue.html" class="dialogue-link">
+                                <i class="fas fa-comments game-icon"></i>Dialogue Practice
+                            </a>
                         </div>
-                    </a>
+                    </div>
+                `);
+            });
+        </script>
+    </div>    
+</div>
 
-                    <a href="https://leoenglish-level-preintermediate.vercel.app" target="_blank" class="level-card level-pre">
-                        <div class="level-header">
-                            <div class="level-icon"><i class="fas fa-chart-line"></i></div>
-                            <h3>PRE-INTERMEDIATE</h3>
-                        </div>
-                        <div class="level-body">
-                            <p>Củng cố ngữ pháp và mở rộng vốn từ vựng để giao tiếp tự tin hơn.</p>
-                            <div class="level-units">24 Units • 100+ Bài học</div>
-                        </div>
-                    </a>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import { getDatabase, ref, set, get, child, remove } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
-                    <a href="https://leoenglish-level-intermediate.vercel.app" target="_blank" class="level-card level-inter">
-                        <div class="level-header">
-                            <div class="level-icon"><i class="fas fa-trophy"></i></div>
-                            <h3>INTERMEDIATE</h3>
-                        </div>
-                        <div class="level-body">
-                            <p>Hoàn thiện kỹ năng, giao tiếp lưu loát và sẵn sàng cho các kỳ thi quốc tế.</p>
-                            <div class="level-units">24 Units • 120+ Bài học</div>
-                        </div>
-                    </a>
+    const firebaseConfig = {
+        apiKey: "AIzaSyBr5WUp7m6kEfzJur4HLqEMS6vCDKhgjyA",
+        authDomain: "leo-english-hub.firebaseapp.com",
+        databaseURL: "https://leo-english-hub-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "leo-english-hub",
+        storageBucket: "leo-english-hub.firebasestorage.app",
+        messagingSenderId: "297427422584",
+        appId: "1:297427422584:web:258d3422070fd49dcecc8d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const dbFS = getFirestore(app);
+    const dbRT = getDatabase(app);
+
+    let currentSessionId = null;
+    let sessionRef = null;
+    let pollInterval = null;
+
+    function showKickMessage() {
+        document.body.innerHTML = `
+            <div style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:99999;">
+                <div style="background:white;padding:50px 60px;border-radius:20px;text-align:center;max-width:520px;box-shadow:0 25px 60px rgba(0,0,0,0.6);">
+                    <h1 style="color:#d32f2f;font-size:34px;margin:0 0 20px 0;">🚨 Đăng nhập ở thiết bị khác</h1>
+                    <p style="font-size:19px;color:#333;line-height:1.7;margin-bottom:35px;">
+                        TÀI KHOẢN CỦA BẠN ĐÃ ĐƯỢC ĐĂNG NHẬP Ở THIẾT BỊ KHÁC<br>
+                        BẠN SẼ BỊ ĐĂNG XUẤT NGAY...
+                    </p>
                 </div>
             </div>
-        </section>
+        `;
+    }
 
-        <section class="zoom-courses">
-            <div class="container">
-                <h2 class="section-title">Khóa Học Online Qua Zoom</h2>
-                <p class="section-subtitle">Các lớp học trực tuyến tương tác cao với giáo viên giàu kinh nghiệm</p>
-                
-                <div class="zoom-grid">
-                    <div class="course-card">
-                        <div class="course-header">
-                            <div class="course-icon"><i class="fas fa-user-graduate"></i></div>
-                        </div>
-                        <div class="course-body">
-                            <div class="title-vi">Lớp kèm 1:1</div>
-                            <div class="title-en">One-on-One Private Tutoring</div>
-                            <p>Học tập cá nhân hóa theo mục tiêu riêng, tiến độ nhanh và linh hoạt lịch học.</p>
-                        </div>
-                    </div>
+    onAuthStateChanged(auth, (user) => {
+        if (!user) return window.location.replace("index.html");
 
-                    <div class="course-card">
-                        <div class="course-header">
-                            <div class="course-icon"><i class="fas fa-comments"></i></div>
-                        </div>
-                        <div class="course-body">
-                            <div class="title-vi">Lớp Anh văn giao tiếp</div>
-                            <div class="title-en">English Communication Course</div>
-                            <p>Phát triển kỹ năng nghe-nói tự tin qua các tình huống thực tế hàng ngày.</p>
-                        </div>
-                    </div>
+        // Rút gọn tên người dùng: Chỉ lấy phần ký tự đứng trước dấu '@' của Email
+        if (user.email) {
+            const shortenedName = user.email.split('@')[0];
+            document.getElementById('userNameDisplay').textContent = shortenedName;
+        } else {
+            document.getElementById('userNameDisplay').textContent = 'User';
+        }
+        
+        // Hiển thị khung thông tin user sau khi dữ liệu đã sẵn sàng
+        document.getElementById('simpleUserDisplay').style.display = 'block';
 
-                    <div class="course-card">
-                        <div class="course-header">
-                            <div class="course-icon"><i class="fas fa-chart-bar"></i></div>
-                        </div>
-                        <div class="course-body">
-                            <div class="title-vi">Lớp IELTS</div>
-                            <div class="title-en">IELTS Preparation Course</div>
-                            <p>Chuẩn bị toàn diện cho kỳ thi IELTS với chiến lược và luyện tập chuyên sâu.</p>
-                        </div>
-                    </div>
+        // Kiểm tra phân quyền truy cập level BEGINNER
+        onSnapshot(doc(dbFS, "users", user.uid), (snap) => {
+            if (!snap.exists() || !snap.data().accessibleLevels?.includes("BEGINNER")) {
+                document.body.innerHTML = `<div style="position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;color:white;font-size:24px;text-align:center;padding:40px;">BẠN CHƯA ĐĂNG KÍ LEVEL NÀY.<br>VUI LÒNG LIÊN HỆ THẦY LEO!</div>`;
+                return;
+            }
 
-                    <div class="course-card">
-                        <div class="course-header">
-                            <div class="course-icon"><i class="fas fa-briefcase"></i></div>
-                        </div>
-                        <div class="course-body">
-                            <div class="title-vi">Lớp TOEIC</div>
-                            <div class="title-en">TOEIC Preparation Course</div>
-                            <p>Luyện thi TOEIC tập trung Listening &amp; Reading cho mục tiêu công việc.</p>
-                        </div>
-                    </div>
+            // Single Device - Thiết lập cơ chế quét phiên đăng nhập đa thiết bị
+            currentSessionId = 'sess_' + Date.now() + Math.random().toString(36).substr(2,8);
+            sessionRef = ref(dbRT, `sessions/${user.uid}`);
 
-                    <div class="course-card">
-                        <div class="course-header">
-                            <div class="course-icon"><i class="fas fa-school"></i></div>
-                        </div>
-                        <div class="course-body">
-                            <div class="title-vi">Luyện THPT</div>
-                            <div class="title-en">High School Exam Preparation</div>
-                            <p>Ôn luyện tiếng Anh thi tốt nghiệp THPT và đại học với đề thi thực tế.</p>
-                        </div>
-                    </div>
+            set(sessionRef, {
+                activeSessionId: currentSessionId,
+                lastActive: Date.now()
+            });
 
-                    <div class="course-card">
-                        <div class="course-header">
-                            <div class="course-icon"><i class="fas fa-users"></i></div>
-                        </div>
-                        <div class="course-body">
-                            <div class="title-vi">Lớp học Cộng Đồng</div>
-                            <div class="title-en">Community English Class</div>
-                            <p>Học nhóm sôi nổi, thực hành giao tiếp và xây dựng cộng đồng học tiếng Anh.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="actions">
-            <div class="container">
-                <div class="action-grid">
-                    <a href="https://zalo.me/0799713094" target="_blank" onclick="event.stopImmediatePropagation()" class="action-btn btn-register">
-                        <i class="fas fa-user-plus"></i> GHI DANH KHÓA HỌC
-                    </a>
-                    <a href="https://zalo.me/0799713094" target="_blank" onclick="event.stopImmediatePropagation()" class="action-btn btn-software">
-                        <i class="fas fa-laptop-code"></i> MUA PHẦN MỀM HỌC
-                    </a>
-                    <a href="https://zalo.me/0799713094" target="_blank" class="action-btn btn-zalo">
-                        <i class="fab fa-whatsapp"></i> TƯ VẤN QUA ZALO
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Leo English. All rights reserved.</p>
-            <p>Hotline: 0799713094 | Email: genwise.languagehub@gmail.com</p>
-        </div>
-    </footer>
-
-    <div id="loginModal">
-        <div style="background: #080c01; padding: 40px; border-radius: 24px; width: 100%; max-width: 420px; box-shadow: var(--neon-glow); position: relative; border: 1px solid rgba(204,255,0,0.3);">
-            <span onclick="closeLoginModal()" style="position: absolute; top: 20px; right: 25px; font-size: 1.6rem; cursor: pointer; color: #6C7A5E;"><i class="fas fa-times"></i></span>
-            <h2 style="text-align: center; margin-bottom: 32px; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">ĐĂNG NHẬP</h2>
-            <form id="firebaseLoginForm" onsubmit="executeFirebaseLogin(event)">
-                <div style="margin-bottom: 24px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #D4E2C6;">Tên đăng nhập</label>
-                    <input type="text" id="loginUsername" required placeholder="Nhập username..." style="width: 100%; padding: 16px 20px; background: #0c1202; border: 1px solid rgba(204,255,0,0.2); border-radius: 16px; font-size: 1rem; color: white; outline: none; transition: border 0.3s;" onfocus="this.style.borderColor='#CCFF00'; this.style.boxShadow='0 0 10px rgba(204,255,0,0.2)'">
-                </div>
-                <div style="margin-bottom: 32px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #D4E2C6;">Mật khẩu</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••" style="width: 100%; padding: 16px 20px; background: #0c1202; border: 1px solid rgba(204,255,0,0.2); border-radius: 16px; font-size: 1rem; color: white; outline: none; transition: border 0.3s;" onfocus="this.style.borderColor='#CCFF00'; this.style.boxShadow='0 0 10px rgba(204,255,0,0.2)'">
-                </div>
-                <button type="submit" style="width: 100%; background: linear-gradient(90deg, #CCFF00, #E5FF66); color: #060800; border: none; padding: 16px; font-size: 1.1rem; font-weight: 700; border-radius: 9999px; cursor: pointer; box-shadow: 0 4px 15px rgba(204,255,0,0.4);">
-                    Đăng Nhập
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div id="adminTerminal">
-        <div style="background: #0b1101; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; color: #D4E2C6; font-size: 0.9rem; border-bottom: 1px solid rgba(204, 255, 0, 0.3);">
-            <span><i class="fas fa-terminal"></i> LEO ENGLISH HUB ADMIN</span>
-            <span onclick="toggleTerminal()" style="cursor: pointer; color: #FF4444;"><i class="fas fa-times"></i></span>
-        </div>
-        <div id="terminalLog" style="padding: 20px; height: 200px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.85rem; line-height: 1.5; background: #030500; color: #CCFF00;">
-            <div>[SYSTEM] Terminal initialized...</div>
-            <div>[SYSTEM] Ready to sync new students.</div>
-        </div>
-        <form onsubmit="addStudentFromTerminal(event)" style="padding: 24px; background: #050800;">
-            <div style="margin-bottom: 16px;">
-                <span style="color: #CCFF00; font-size: 0.85rem;">username → </span>
-                <input type="text" id="termUsername" placeholder="hocvien01" required style="background: transparent; border: none; color: #F4FFE0; font-family: inherit; outline: none; width: 70%;">
-            </div>
-            <div style="margin-bottom: 20px;">
-                <span style="color: #CCFF00; font-size: 0.85rem;">password → </span>
-                <input type="text" id="termPassword" placeholder="••••••" required style="background: transparent; border: none; color: #F4FFE0; font-family: inherit; outline: none; width: 70%;">
-            </div>
-            <button type="submit" style="width: 100%; background: linear-gradient(90deg, #CCFF00, #E5FF66); color: #060800; border: none; padding: 12px; font-weight: 700; border-radius: 9999px; cursor: pointer; box-shadow: 0 4px 15px rgba(204,255,0,0.3);">PUSH TO DATABASE</button>
-        </form>
-    </div>
-
-    <div onclick="toggleTerminal()" style="position: fixed; bottom: 40px; left: 40px; width: 52px; height: 52px; background: rgba(5, 8, 0, 0.95); border: 2px solid #CCFF00; color: #CCFF00; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(204, 255, 0, 0.6); z-index: 10000; transition: all 0.3s ease;" title="Admin Terminal">
-        <i class="fas fa-code"></i>
-    </div>
-
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyBr5WUp7m6kEfzJur4HLqEMS6vCDKhgjyA",
-            authDomain: "leo-english-hub.firebaseapp.com",
-            projectId: "leo-english-hub",
-            storageBucket: "leo-english-hub.firebasestorage.app",
-            messagingSenderId: "297427422584",
-            appId: "1:297427422584:web:258d3422070fd49dcecc8d",
-            databaseURL: "https://leo-english-hub-default-rtdb.asia-southeast1.firebasedatabase.app"
-        };
-
-        let app;
-
-        window.onload = function() {
-            if (typeof firebase !== 'undefined') {
-                app = firebase.initializeApp(firebaseConfig);
-                
-                firebase.auth().onAuthStateChanged((user) => {
-                    const userSection = document.getElementById('user-section');
-                    const mobileUserSection = document.getElementById('mobile-user-section');
-                    
-                    if (user) {
-                        const displayName = user.email ? user.email.split('@')[0] : 'User';
-                        
-                        userSection.innerHTML = `
-                            <span style="margin-right: 16px; display: flex; align-items: center; gap: 8px; color:#FFF; font-weight:600;">
-                                <i class="fas fa-user-circle" style="color:#CCFF00;"></i> ${displayName}
-                            </span>
-                            <button onclick="handleLogout()" style="background: transparent; color: #CCFF00; border: 1px solid #CCFF00; padding: 8px 20px; border-radius: 9999px; cursor: pointer; font-weight: 500; box-shadow: inset 0 0 10px rgba(204,255,0,0.2); transition: 0.3s;">Đăng xuất</button>
-                        `;
-                        
-                        mobileUserSection.innerHTML = `
-                            <span style="display: flex; align-items: center; gap: 8px; color:#FFF; font-weight:600; font-size: 1.1rem; margin-bottom: 4px;">
-                                <i class="fas fa-user-circle" style="color:#CCFF00; font-size: 1.3rem;"></i> ${displayName}
-                            </span>
-                            <button onclick="handleLogout(); toggleMobileMenu();" style="background: transparent; color: #FF4444; border: 1px solid #FF4444; padding: 10px 32px; border-radius: 9999px; cursor: pointer; font-weight: 600; font-size: 1rem; width: 100%; max-width: 240px; transition: 0.3s; box-shadow: inset 0 0 10px rgba(255,68,68,0.1);">Đăng xuất</button>
-                        `;
-                    } else {
-                        userSection.innerHTML = `
-                            <button onclick="handleLogin()" style="background: linear-gradient(90deg, #CCFF00, #E5FF66); color: #060800; border: none; padding: 10px 24px; border-radius: 9999px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(204,255,0,0.4);">
-                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
-                            </button>
-                        `;
-                        
-                        mobileUserSection.innerHTML = `
-                            <button onclick="handleLogin(); toggleMobileMenu();" style="background: linear-gradient(90deg, #CCFF00, #E5FF66); color: #060800; border: none; padding: 12px 32px; border-radius: 9999px; font-weight: 700; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; max-width: 240px; box-shadow: 0 4px 15px rgba(204,255,0,0.4);">
-                                <i class="fas fa-sign-in-alt"></i> Đăng nhập
-                            </button>
-                        `;
+            // Tiến hành Poll kiểm tra đồng bộ mỗi 2 giây
+            if (pollInterval) clearInterval(pollInterval);
+            pollInterval = setInterval(async () => {
+                try {
+                    const snapshot = await get(child(ref(dbRT), `sessions/${user.uid}`));
+                    const data = snapshot.val();
+                    if (data && data.activeSessionId && data.activeSessionId !== currentSessionId) {
+                        clearInterval(pollInterval);
+                        showKickMessage();
+                        setTimeout(() => {
+                            signOut(auth).then(() => window.location.replace("index.html"));
+                        }, 2500);
                     }
-                });
-            }
-            
-            createFireflies();
-            initScrollAnimations();
-        };
-
-        function handleLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
-
-        function executeFirebaseLogin(event) {
-            event.preventDefault();
-            let username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            if (!username.includes('@')) {
-                username = username + "@leoenglishhub.com";
-            }
-
-            firebase.auth().signInWithEmailAndPassword(username, password)
-                .then(() => {
-                    alert("Đăng nhập thành công!");
-                    closeLoginModal();
-                    document.getElementById('firebaseLoginForm').reset();
-                })
-                .catch((error) => {
-                    alert("Tên đăng nhập hoặc mật khẩu không chính xác!");
-                });
-        }
-
-        function handleLogout() {
-            firebase.auth().signOut().then(() => {
-                alert("Đã đăng xuất.");
-            });
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.querySelector('.hamburger i');
-            if (menu.classList.contains('active')) {
-                menu.classList.remove('active');
-                icon.className = 'fas fa-bars';
-            } else {
-                menu.classList.add('active');
-                icon.className = 'fas fa-times';
-            }
-        }
-
-        // Terminal functions
-        function toggleTerminal() {
-            const term = document.getElementById('adminTerminal');
-            term.style.display = (term.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function printTerminalLog(text) {
-            const logDiv = document.getElementById('terminalLog');
-            if (logDiv) {
-                const entry = document.createElement('div');
-                entry.innerHTML = text;
-                logDiv.appendChild(entry);
-                logDiv.scrollTop = logDiv.scrollHeight;
-            }
-        }
-
-        function addStudentFromTerminal(event) {
-            event.preventDefault();
-            const username = document.getElementById('termUsername').value.trim();
-            const password = document.getElementById('termPassword').value.trim();
-            
-            printTerminalLog(`<span style="color:#CCFF00">[INFO]</span> Đang đẩy học viên <b>${username}</b>...`);
-
-            firebase.database().ref('students/' + username).set({
-                username: username,
-                password: password,
-                updatedAt: new Date().toISOString()
-            })
-            .then(() => {
-                printTerminalLog(`<span style="color:#CCFF00">✓ Thành công! Học viên ${username} đã được thêm.</span>`);
-                document.getElementById('termUsername').value = '';
-                document.getElementById('termPassword').value = '';
-            })
-            .catch((err) => {
-                printTerminalLog(`<span style="color:#FF4444">✗ Lỗi: ${err.message}</span>`);
-            });
-        }
-
-        function createFireflies() {
-            const container = document.body;
-            for (let i = 0; i < 20; i++) {
-                const fly = document.createElement('div');
-                fly.className = 'firefly';
-                const size = 4 + Math.random() * 6;
-                fly.style.width = `${size}px`;
-                fly.style.height = `${size}px`;
-                fly.style.left = `${Math.random() * 100}vw`;
-                fly.style.bottom = '-40px';
-                fly.style.opacity = 0.5 + Math.random() * 0.5;
-                fly.style.animationDuration = `${12 + Math.random() * 18}s`;
-                fly.style.animationDelay = `-${Math.random() * 15}s`;
-                container.appendChild(fly);
-            }
-        }
-
-        function initScrollAnimations() {
-            const cards = document.querySelectorAll('.level-card, .course-card');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.transitionDelay = `${index * 60}ms`;
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.05 });
-            
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                observer.observe(card);
-            });
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && e.key === 't') {
-                e.preventDefault();
-                toggleTerminal();
-            }
+                } catch (e) {}
+            }, 2000);
         });
+    });
 
-        document.addEventListener('click', function(e) {
-            const menu = document.getElementById('mobileMenu');
-            const hamburger = document.querySelector('.hamburger');
-            if (menu && !menu.contains(e.target) && !hamburger.contains(e.target) && menu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
+    document.getElementById('signOutBtnSimple').addEventListener('click', async () => {
+        if (sessionRef) await remove(sessionRef);
+        await signOut(auth);
+        window.location.replace("index.html");
+    });
+
+    // Xử lý rút gọn menu trên Mobile
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('open');
+            navLinks.classList.toggle('open');
         });
-    </script>
+    }
+</script>
 </body>
 </html>
