@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <!-- Favicon & App Icons -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4F46E5">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leo English -Tiếng Anh Chuyên Nghiệp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600&amp;display=swap" rel="stylesheet">
+    <title>Leo English - Tiếng Anh Chuyên Nghiệp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -23,8 +22,9 @@
             --accent: #A855F7;
             --highlight: #22D3EE;
             --dark: #050816;
-            --glass: rgba(255, 255, 255, 0.08);
-            --border: rgba(255, 255, 255, 0.12);
+            --glass: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 25px rgba(79, 70, 229, 0.4), 0 0 50px rgba(34, 211, 238, 0.2);
         }
 
         * {
@@ -35,7 +35,7 @@
 
         body {
             font-family: 'Inter', system_ui, sans-serif;
-            background: #050816;
+            background: #030014;
             color: #E0E7FF;
             overflow-x: hidden;
             min-height: 100vh;
@@ -60,37 +60,37 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
-            animation: mesh-shift 25s ease infinite;
+                radial-gradient(circle at 15% 25%, rgba(79, 70, 229, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(6, 182, 212, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.18) 0%, transparent 50%);
+            animation: mesh-shift 20s ease infinite alternate;
             z-index: -1;
         }
 
         @keyframes mesh-shift {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(30px, 40px) rotate(2deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
+            0% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
+            50% { transform: scale(1.1) translate(40px, -20px) rotate(3deg); }
+            100% { transform: scale(1) translate(0px, 0px) rotate(0deg); }
         }
 
-        /* Floating Orbs */
+        /* Enhanced Floating Orbs */
         .orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
+            filter: blur(100px);
+            opacity: 0.25;
             z-index: -1;
-            animation: floatOrb 30s infinite linear;
+            animation: floatOrb 25s infinite linear;
         }
 
-        .orb1 { width: 600px; height: 600px; background: #4F46E5; top: -10%; left: -10%; animation-delay: 0s; }
-        .orb2 { width: 800px; height: 800px; background: #06B6D4; bottom: -20%; right: -15%; animation-delay: -10s; }
-        .orb3 { width: 500px; height: 500px; background: #A855F7; top: 40%; right: 10%; animation-delay: -20s; }
+        .orb1 { width: 700px; height: 700px; background: #4F46E5; top: -15%; left: -10%; animation-delay: 0s; }
+        .orb2 { width: 900px; height: 900px; background: #06B6D4; bottom: -15%; right: -15%; animation-delay: -8s; }
+        .orb3 { width: 600px; height: 600px; background: #A855F7; top: 35%; right: 5%; animation-delay: -16s; }
 
         @keyframes floatOrb {
-            0% { transform: translate(0, 0); }
-            50% { transform: translate(80px, -60px); }
-            100% { transform: translate(0, 0); }
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(100px, -80px) scale(1.15); }
+            100% { transform: translate(0, 0) scale(1); }
         }
 
         .container {
@@ -103,37 +103,44 @@
 
         /* ====================== NAVBAR ====================== */
         nav {
-            background: rgba(5, 8, 22, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
+            background: rgba(5, 8, 22, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-radius: 9999px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255,255,255,0.1);
             margin: 20px auto;
             position: sticky;
             top: 16px;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav:hover {
-            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+            border-color: rgba(34, 211, 238, 0.4);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.3), 0 0 30px rgba(6, 182, 212, 0.15);
         }
 
         .logo {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 28px;
             font-weight: 700;
-            background: linear-gradient(90deg, #4F46E5, #22D3EE);
+            background: linear-gradient(90deg, #6366F1, #22D3EE, #A855F7);
+            background-size: 200% auto;
+            animation: shineText 4s linear infinite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        @keyframes shineText {
+            to { background-position: 200% center; }
         }
 
         .nav-links {
@@ -143,11 +150,16 @@
         }
 
         .nav-links a {
-            color: #E0E7FF;
+            color: #CBD5E1;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #FFF;
+            text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
         }
 
         .nav-links a:after {
@@ -158,6 +170,7 @@
             bottom: -4px;
             left: 0;
             background: linear-gradient(to right, var(--primary), var(--secondary));
+            box-shadow: 0 0 8px var(--highlight);
             transition: width 0.3s ease;
         }
 
@@ -187,7 +200,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(5, 8, 22, 0.98);
+            background: rgba(3, 0, 20, 0.98);
             backdrop-filter: blur(20px);
             z-index: 999;
             padding-top: 100px;
@@ -213,33 +226,11 @@
 
         .mobile-menu a:hover {
             background: rgba(79, 70, 229, 0.3);
+            box-shadow: var(--neon-glow);
             transform: scale(1.05);
         }
 
-        /* Floating Login Button on Mobile */
-        .floating-login {
-            display: none;
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(90deg, #4F46E5, #22D3EE);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 9999px;
-            font-weight: 600;
-            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
-            z-index: 1002;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .floating-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(79, 70, 229, 0.5);
-        }
-
-        /* Hero */
+        /* Hero Section */
         .hero {
             display: flex;
             align-items: center;
@@ -261,33 +252,38 @@
             border-radius: 50%;
             background: url('ava.png') center/cover;
             box-shadow: 
-                0 0 0 12px rgba(79, 70, 229, 0.3),
-                0 0 60px rgba(34, 211, 238, 0.6),
-                inset 0 0 40px rgba(255,255,255,0.2);
+                0 0 0 8px rgba(79, 70, 229, 0.2),
+                0 0 40px rgba(79, 70, 229, 0.6),
+                0 0 70px rgba(34, 211, 238, 0.4),
+                inset 0 0 30px rgba(255,255,255,0.2);
             position: relative;
             z-index: 2;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .avatar:hover {
-            transform: scale(1.08) rotate(3deg);
+            transform: scale(1.06) rotate(2deg);
+            box-shadow: 
+                0 0 0 12px rgba(79, 70, 229, 0.3),
+                0 0 60px rgba(79, 70, 229, 0.8),
+                0 0 100px rgba(34, 211, 238, 0.7);
         }
 
         .glow-ring {
             position: absolute;
-            inset: -40px;
+            inset: -35px;
             border-radius: 50%;
             background: conic-gradient(
-                transparent 30deg,
-                #4F46E5 80deg,
-                #22D3EE 160deg,
-                #A855F7 240deg,
-                transparent 330deg
+                transparent 20deg,
+                #4F46E5 70deg,
+                #22D3EE 150deg,
+                #A855F7 230deg,
+                transparent 300deg
             );
-            animation: rotate-glow 12s linear infinite;
+            animation: rotate-glow 8s linear infinite;
             z-index: 1;
-            filter: blur(18px);
-            opacity: 0.85;
+            filter: blur(14px);
+            opacity: 0.9px;
         }
 
         @keyframes rotate-glow {
@@ -304,11 +300,12 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: clamp(2.8rem, 6vw, 4.5rem);
             font-weight: 700;
-            line-height: 1.05;
-            background: linear-gradient(90deg, #E0E7FF, #C4D0FF, #A5B4FC);
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFF 30%, #C4D0FF, #818CF8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1.5rem;
+            text-shadow: 0 0 40px rgba(79, 70, 229, 0.15);
         }
 
         .hero-content p {
@@ -319,8 +316,8 @@
             margin-bottom: 2.5rem;
         }
 
-        /* Levels Section */
-        .levels {
+        /* ====================== PREMIUM GLOW CARDS ====================== */
+        .levels, .zoom-courses {
             padding: 120px 0;
             position: relative;
         }
@@ -329,10 +326,12 @@
             text-align: center;
             font-size: 3rem;
             font-weight: 700;
-            background: linear-gradient(90deg, #E0E7FF, #C4D0FF);
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(90deg, #FFF, #C4D0FF, #22D3EE);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(79, 70, 229, 0.2);
         }
 
         .section-subtitle {
@@ -343,90 +342,131 @@
             margin: 0 auto 4rem;
         }
 
-        .levels-grid {
+        .levels-grid, .zoom-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 32px;
         }
 
         @media (min-width: 1200px) {
-            .levels-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+            .levels-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        
         @media (max-width: 1199px) and (min-width: 768px) {
-            .levels-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .levels-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        .level-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
+        /* Siêu hiệu ứng ánh sáng phủ toàn thẻ (Glow Card Container) */
+        .level-card, .course-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 28px;
             overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             color: inherit;
             text-decoration: none;
             display: flex;
             flex-direction: column;
             height: 100%;
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
         }
 
-        .level-card:hover {
-            transform: translateY(-16px) scale(1.02);
-            box-shadow: 0 30px 70px -15px rgba(79, 70, 229, 0.35);
-            border-color: rgba(79, 70, 229, 0.5);
+        /* Thêm lớp phủ ánh sáng động ẩn phía sau viền và nền */
+        .level-card::before, .course-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            z-index: 1;
         }
+
+        /* Khi di chuột: Ánh sáng dày, bao phủ toàn bộ khối diện tích thẻ cực kỳ tinh tế */
+        .level-card:hover, .course-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border-color: rgba(255, 255, 255, 0.25);
+            /* Đổ bóng kép cường độ cao tạo quầng hào quang dày xung quanh */
+            box-shadow: 
+                0 20px 40px -15px rgba(0, 0, 0, 0.8),
+                0 0 35px -5px var(--card-glow, rgba(79, 70, 229, 0.5)),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        .level-card:hover::before, .course-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        /* Thiết lập màu hào quang đặc trưng cho từng cấp độ hiển thị rực rỡ hơn */
+        .level-starter { --card-glow: rgba(34, 197, 94, 0.45); }
+        .level-beginner { --card-glow: rgba(59, 130, 246, 0.45); }
+        .level-pre { --card-glow: rgba(139, 92, 246, 0.45); }
+        .level-inter { --card-glow: rgba(245, 158, 11, 0.45); }
+        .course-card { --card-glow: rgba(168, 85, 247, 0.4); }
 
         .level-header {
             padding: 32px 24px 20px;
             text-align: center;
             position: relative;
+            z-index: 2;
         }
 
-        .level-icon {
+        .level-icon, .course-icon {
             width: 78px;
             height: 78px;
             margin: 0 auto 16px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.2rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
         }
 
-        .level-card:hover .level-icon {
-            transform: translateY(-12px) scale(1.15);
-            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.4);
+        /* Ánh sáng biểu tượng bừng sáng khi hover */
+        .level-card:hover .level-icon, .course-card:hover .course-icon {
+            transform: translateY(-8px) scale(1.1);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: currentColor;
+            box-shadow: 0 0 25px currentColor;
         }
 
-        .level-starter .level-icon { color: #22C55E; }
-        .level-beginner .level-icon { color: #3B82F6; }
-        .level-pre .level-icon { color: #8B5CF6; }
-        .level-inter .level-icon { color: #F59E0B; }
+        .level-starter .level-icon { color: #4ADE80; }
+        .level-beginner .level-icon { color: #60A5FA; }
+        .level-pre .level-icon { color: #A78BFA; }
+        .level-inter .level-icon { color: #FBBF24; }
+        .course-icon { color: #C084FC; }
 
         .level-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.55rem;
             font-weight: 700;
             color: white;
             margin-bottom: 8px;
+            letter-spacing: 1px;
+            transition: text-shadow 0.3s;
         }
 
-        .level-body {
+        .level-card:hover h3 {
+            text-shadow: 0 0 10px rgba(255,255,255,0.6);
+        }
+
+        .level-body, .course-body {
             padding: 0 28px 32px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 2;
         }
 
-        .level-body p {
+        .level-body p, .course-body p {
             color: #94A3B8;
             line-height: 1.65;
             margin-bottom: 2rem;
@@ -437,89 +477,30 @@
             font-size: 0.95rem;
             padding: 8px 20px;
             border-radius: 9999px;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             color: #CBD5E1;
             font-weight: 500;
             align-self: flex-start;
+            transition: all 0.3s;
         }
 
-        /* NEW ZOOM COURSES SECTION */
-        .zoom-courses {
-            padding: 120px 0;
-            position: relative;
+        .level-card:hover .level-units {
+            background: rgba(255,255,255,0.15);
+            color: #FFF;
+            border-color: rgba(255,255,255,0.3);
         }
 
-        .zoom-courses .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #E0E7FF, #C4D0FF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-        }
-
-        .zoom-courses .section-subtitle {
-            text-align: center;
-            font-size: 1.25rem;
-            color: #64748B;
-            max-width: 620px;
-            margin: 0 auto 4rem;
-        }
-
-        .zoom-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-
-        .course-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 28px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
-            backdrop-filter: blur(16px);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .course-card:hover {
-            transform: translateY(-16px) scale(1.02);
-            box-shadow: 0 30px 70px -15px rgba(79, 70, 229, 0.35);
-            border-color: rgba(168, 85, 247, 0.5);
-        }
-
+        /* Course Card Special Design */
         .course-header {
             padding: 32px 24px 20px;
             text-align: center;
-            background: linear-gradient(135deg, rgba(79,70,229,0.2), rgba(168,85,247,0.2));
-        }
-
-        .course-icon {
-            width: 78px;
-            height: 78px;
-            margin: 0 auto 16px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.2rem;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .course-card:hover .course-icon {
-            transform: translateY(-12px) scale(1.15) rotate(8deg);
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(168, 85, 247, 0.15));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .course-body {
-            padding: 0 28px 32px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+            padding-top: 24px;
         }
 
         .course-body .title-vi {
@@ -531,17 +512,12 @@
 
         .course-body .title-en {
             font-size: 1rem;
-            color: #94A3B8;
+            color: #64748B;
             margin-bottom: 18px;
+            font-weight: 500;
         }
 
-        .course-body p {
-            color: #94A3B8;
-            line-height: 1.65;
-            flex-grow: 1;
-        }
-
-        /* Action Buttons */
+        /* Action Buttons với Hiệu Ứng Quét Sáng Mạnh */
         .actions {
             padding: 100px 0;
             position: relative;
@@ -563,62 +539,60 @@
             font-size: 1.15rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             color: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
         .action-btn::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 40%;
+            left: -150%;
+            width: 50%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-25deg);
             transition: 0.7s;
         }
 
         .action-btn:hover::before {
-            left: 200%;
+            left: 250%;
         }
 
         .action-btn:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px -12px rgb(79 70 229);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.4), 0 0 25px rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
         }
 
-        .btn-register {
-            background: linear-gradient(135deg, #22C55E, #4ADE80);
-        }
-
-        .btn-software {
-            background: linear-gradient(135deg, #3B82F6, #60A5FA);
-        }
-
-        .btn-zalo {
-            background: linear-gradient(135deg, #22C55E, #15803D);
-        }
+        .btn-register { background: linear-gradient(135deg, #16A34A, #4ADE80); }
+        .btn-software { background: linear-gradient(135deg, #2563EB, #60A5FA); }
+        .btn-zalo { background: linear-gradient(135deg, #059669, #10B981); }
 
         /* Footer */
         footer {
-            background: #02040F;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            color: #64748B;
+            background: #010208;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #475569;
             padding: 60px 0 40px;
             text-align: center;
+            font-size: 0.95rem;
         }
+
+        footer p { margin-bottom: 8px; }
 
         /* Modals & Terminal */
         #loginModal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(5, 8, 22, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(3, 0, 20, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             z-index: 10001;
             align-items: center;
             justify-content: center;
@@ -630,98 +604,47 @@
             bottom: 30px;
             right: 30px;
             width: 400px;
-            background: #0A0F1C;
-            border: 1px solid #1E2937;
+            background: #060813;
+            border: 1px solid rgba(34, 211, 238, 0.3);
             border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgb(0 0 0);
+            box-shadow: var(--neon-glow);
             overflow: hidden;
             z-index: 10002;
         }
 
-        /* Fireflies */
+        /* Fireflies Cường Độ Cao */
         .firefly {
             position: fixed;
-            background: radial-gradient(circle, #67E8F9 30%, #22D3EE 70%, transparent);
+            background: radial-gradient(circle, #E0F2FE 20%, #22D3EE 60%, transparent 100%);
             border-radius: 50%;
-            box-shadow: 0 0 18px #67E8F9;
+            box-shadow: 0 0 20px #22D3EE, 0 0 40px rgba(6, 182, 212, 0.5);
             pointer-events: none;
             z-index: 999;
             animation: firefly-rise linear infinite;
         }
 
         @keyframes firefly-rise {
-            0% { transform: translateY(120vh) scale(0.6); opacity: 0.7; }
-            100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
+            0% { transform: translateY(120vh) translateX(0) scale(0.6); opacity: 0.8; }
+            50% { transform: translateY(50vh) translateX(30px) scale(1); opacity: 1; }
+            100% { transform: translateY(-80px) translateX(-20px) scale(0.8); opacity: 0; }
         }
 
-        /* ====================== MOBILE RESPONSIVE ====================== */
+        /* ====================== RESPONSIVE SYSTEM ====================== */
         @media (max-width: 767px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            nav {
-                padding: 14px 20px;
-                margin: 12px 12px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .floating-login {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .hero {
-                padding: 80px 0 100px;
-                gap: 40px;
-            }
-
-            .avatar-container {
-                width: 220px;
-                height: 220px;
-            }
-
-            .avatar {
-                width: 220px;
-                height: 220px;
-            }
-
-            .section-title {
-                font-size: 2.4rem;
-            }
-
-            .levels-grid,
-            .zoom-grid {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .action-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-
-            .action-btn {
-                padding: 18px 24px;
-                font-size: 1.1rem;
-            }
-
-            #adminTerminal {
-                width: 92%;
-                right: 4%;
-                bottom: 80px;
-            }
+            .container { padding: 0 16px; }
+            nav { padding: 14px 20px; margin: 12px; }
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .hero { padding: 80px 0 100px; gap: 40px; }
+            .avatar-container, .avatar { width: 220px; height: 220px; }
+            .section-title { font-size: 2.4rem; }
+            .levels-grid, .zoom-grid { grid-template-columns: 1fr; gap: 24px; }
+            .action-grid { grid-template-columns: 1fr; gap: 18px; }
+            .action-btn { padding: 18px 24px; font-size: 1.1rem; }
+            #adminTerminal { width: 92%; right: 4%; bottom: 80px; }
         }
     </style>
-  <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
     <div class="bg-canvas">
@@ -734,7 +657,7 @@
     <div class="container">
         <nav>
             <div class="logo">
-                <i class="fas fa-graduation-cap" style="color: #22D3EE;"></i>
+                <i class="fas fa-graduation-cap"></i>
                 LEO ENGLISH
             </div>
             <div class="nav-links">
@@ -744,14 +667,12 @@
                 <a href="#">Tin tức</a>
                 <a href="#">Liên hệ</a>
             </div>
-            <div id="user-section" class="user-info">
-            </div>
+            <div id="user-section" class="user-info"></div>
             <div class="hamburger" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
 
-        <!-- Mobile Menu -->
         <div id="mobileMenu" class="mobile-menu">
             <a href="#" onclick="toggleMobileMenu()">Trang chủ</a>
             <a href="#" onclick="toggleMobileMenu()">Giới thiệu</a>
@@ -767,9 +688,9 @@
             </div>
             <div class="hero-content">
                 <h1>Let’s upgrade <br> your language</h1>
-                <p> Tiếng Anh hiện đại với chương trình học theo cấp độ, công nghệ tương tác và phương pháp dạy học tiên tiến.</p>
+                <p>Tiếng Anh hiện đại với chương trình học theo cấp độ, công nghệ tương tác và phương pháp dạy học tiên tiến.</p>
                 <button onclick="document.getElementById('levels').scrollIntoView({ behavior: 'smooth' })" 
-                        style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 20px 48px; font-size: 1.25rem; font-weight: 600; border-radius: 9999px; cursor: pointer; box-shadow: 0 10px 30px -10px rgb(79 70 229); transition: all 0.3s ease;">
+                        style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 20px 48px; font-size: 1.25rem; font-weight: 600; border-radius: 9999px; cursor: pointer; box-shadow: var(--neon-glow); transition: all 0.3s ease;">
                     Khám phá các cấp độ
                 </button>
             </div>
@@ -828,7 +749,6 @@
             </div>
         </section>
 
-        <!-- NEW ZOOM COURSES SECTION -->
         <section class="zoom-courses">
             <div class="container">
                 <h2 class="section-title">Khóa Học Online Qua Zoom</h2>
@@ -908,21 +828,19 @@
             <div class="container">
                 <div class="action-grid">
                     <a href="https://zalo.me/0799713094" target="_blank" onclick="event.stopImmediatePropagation()" class="action-btn btn-register">
-                        <i class="fas fa-user-plus"></i>
-                        GHI DANH KHÓA HỌC
+                        <i class="fas fa-user-plus"></i> GHI DANH KHÓA HỌC
                     </a>
                     <a href="https://zalo.me/0799713094" target="_blank" onclick="event.stopImmediatePropagation()" class="action-btn btn-software">
-                        <i class="fas fa-laptop-code"></i>
-                        MUA PHẦN MỀM HỌC
+                        <i class="fas fa-laptop-code"></i> MUA PHẦN MỀM HỌC
                     </a>
                     <a href="https://zalo.me/0799713094" target="_blank" class="action-btn btn-zalo">
-                        <i class="fab fa-whatsapp"></i>
-                        TƯ VẤN QUA ZALO
+                        <i class="fab fa-whatsapp"></i> TƯ VẤN QUA ZALO
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2026 Leo English. All rights reserved.</p>
@@ -930,38 +848,36 @@
         </div>
     </footer>
 
-    <!-- Login Modal -->
     <div id="loginModal">
-        <div style="background: #0F172A; padding: 40px; border-radius: 24px; width: 100%; max-width: 420px; box-shadow: 0 25px 50px -12px rgb(0 0 0); position: relative; border: 1px solid #334155;">
+        <div style="background: #090d1a; padding: 40px; border-radius: 24px; width: 100%; max-width: 420px; box-shadow: var(--neon-glow); position: relative; border: 1px solid rgba(255,255,255,0.15);">
             <span onclick="closeLoginModal()" style="position: absolute; top: 20px; right: 25px; font-size: 1.6rem; cursor: pointer; color: #64748B;"><i class="fas fa-times"></i></span>
             <h2 style="text-align: center; margin-bottom: 32px; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 2rem;">ĐĂNG NHẬP</h2>
             <form id="firebaseLoginForm" onsubmit="executeFirebaseLogin(event)">
                 <div style="margin-bottom: 24px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #CBD5E1;">Tên đăng nhập</label>
-                    <input type="text" id="loginUsername" required placeholder="Nhập username..." style="width: 100%; padding: 16px 20px; background: #1E2937; border: 1px solid #334155; border-radius: 16px; font-size: 1rem; color: white; outline: none;">
+                    <input type="text" id="loginUsername" required placeholder="Nhập username..." style="width: 100%; padding: 16px 20px; background: #111827; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; font-size: 1rem; color: white; outline: none; transition: border 0.3s;" onfocus="this.style.borderColor='#22D3EE'">
                 </div>
                 <div style="margin-bottom: 32px;">
                     <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #CBD5E1;">Mật khẩu</label>
-                    <input type="password" id="loginPassword" required placeholder="••••••••" style="width: 100%; padding: 16px 20px; background: #1E2937; border: 1px solid #334155; border-radius: 16px; font-size: 1rem; color: white; outline: none;">
+                    <input type="password" id="loginPassword" required placeholder="••••••••" style="width: 100%; padding: 16px 20px; background: #111827; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; font-size: 1rem; color: white; outline: none; transition: border 0.3s;" onfocus="this.style.borderColor='#22D3EE'">
                 </div>
-                <button type="submit" style="width: 100%; background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 16px; font-size: 1.1rem; font-weight: 600; border-radius: 9999px; cursor: pointer;">
+                <button type="submit" style="width: 100%; background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 16px; font-size: 1.1rem; font-weight: 600; border-radius: 9999px; cursor: pointer; box-shadow: 0 4px 15px rgba(79,70,229,0.4);">
                     Đăng Nhập
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Admin Terminal -->
     <div id="adminTerminal">
-        <div style="background: #1E2937; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; color: #CBD5E1; font-size: 0.9rem; border-bottom: 1px solid #334155;">
+        <div style="background: #0f172a; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; color: #CBD5E1; font-size: 0.9rem; border-bottom: 1px solid rgba(34, 211, 238, 0.2);">
             <span><i class="fas fa-terminal"></i> LEO ENGLISH ADMIN</span>
             <span onclick="toggleTerminal()" style="cursor: pointer; color: #F87171;"><i class="fas fa-times"></i></span>
         </div>
-        <div id="terminalLog" style="padding: 20px; height: 200px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.85rem; line-height: 1.5; background: #0F172A; color: #67E8F9;">
+        <div id="terminalLog" style="padding: 20px; height: 200px; overflow-y: auto; font-family: ui-monospace, monospace; font-size: 0.85rem; line-height: 1.5; background: #030712; color: #67E8F9;">
             <div>[SYSTEM] Terminal initialized...</div>
             <div>[SYSTEM] Ready to sync new students.</div>
         </div>
-        <form onsubmit="addStudentFromTerminal(event)" style="padding: 24px; background: #0A0F1C;">
+        <form onsubmit="addStudentFromTerminal(event)" style="padding: 24px; background: #060813;">
             <div style="margin-bottom: 16px;">
                 <span style="color: #67E8F9; font-size: 0.85rem;">username → </span>
                 <input type="text" id="termUsername" placeholder="hocvien01" required style="background: transparent; border: none; color: #E0E7FF; font-family: inherit; outline: none; width: 70%;">
@@ -970,12 +886,11 @@
                 <span style="color: #67E8F9; font-size: 0.85rem;">password → </span>
                 <input type="text" id="termPassword" placeholder="••••••" required style="background: transparent; border: none; color: #E0E7FF; font-family: inherit; outline: none; width: 70%;">
             </div>
-            <button type="submit" style="width: 100%; background: linear-gradient(90deg, #22D3EE, #4F46E5); color: #0F172A; border: none; padding: 12px; font-weight: 700; border-radius: 9999px; cursor: pointer;">PUSH TO DATABASE</button>
+            <button type="submit" style="width: 100%; background: linear-gradient(90deg, #22D3EE, #4F46E5); color: #0F172A; border: none; padding: 12px; font-weight: 700; border-radius: 9999px; cursor: pointer; box-shadow: 0 4px 15px rgba(34,211,238,0.3);">PUSH TO DATABASE</button>
         </form>
     </div>
 
-    <!-- Terminal Toggle Button -->
-    <div onclick="toggleTerminal()" style="position: fixed; bottom: 40px; left: 40px; width: 52px; height: 52px; background: rgba(15, 23, 42, 0.9); border: 2px solid #67E8F9; color: #67E8F9; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(103, 232, 249, 0.3); z-index: 10000; transition: all 0.3s ease;" title="Admin Terminal">
+    <div onclick="toggleTerminal()" style="position: fixed; bottom: 40px; left: 40px; width: 52px; height: 52px; background: rgba(6, 8, 19, 0.9); border: 2px solid #22D3EE; color: #22D3EE; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px rgba(34, 211, 238, 0.4); z-index: 10000; transition: all 0.3s ease;" title="Admin Terminal">
         <i class="fas fa-code"></i>
     </div>
 
@@ -1001,14 +916,14 @@
                     if (user) {
                         const displayName = user.email ? user.email.split('@')[0] : 'User';
                         userSection.innerHTML = `
-                            <span style="margin-right: 16px; display: flex; align-items: center; gap: 8px;">
-                                <i class="fas fa-user-circle"></i> ${displayName}
+                            <span style="margin-right: 16px; display: flex; align-items: center; gap: 8px; color:#FFF; font-weight:600;">
+                                <i class="fas fa-user-circle" style="color:#22D3EE;"></i> ${displayName}
                             </span>
-                            <button onclick="handleLogout()" style="background: transparent; color: #67E8F9; border: 1px solid #67E8F9; padding: 8px 20px; border-radius: 9999px; cursor: pointer; font-weight: 500;">Đăng xuất</button>
+                            <button onclick="handleLogout()" style="background: transparent; color: #22D3EE; border: 1px solid #22D3EE; padding: 8px 20px; border-radius: 9999px; cursor: pointer; font-weight: 500; box-shadow: inset 0 0 10px rgba(34,211,238,0.15); transition: 0.3s;" onhover="this.style.boxShadow='0 0 15px #22D3EE'">Đăng xuất</button>
                         `;
                     } else {
                         userSection.innerHTML = `
-                            <button onclick="handleLogin()" style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 10px 24px; border-radius: 9999px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                            <button onclick="handleLogin()" style="background: linear-gradient(90deg, #4F46E5, #22D3EE); color: white; border: none; padding: 10px 24px; border-radius: 9999px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(79,70,229,0.35);">
                                 <i class="fas fa-sign-in-alt"></i> Đăng nhập
                             </button>
                         `;
@@ -1020,13 +935,8 @@
             initScrollAnimations();
         };
 
-        function handleLogin() {
-            document.getElementById('loginModal').style.display = 'flex';
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
+        function handleLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLoginModal() { document.getElementById('loginModal').style.display = 'none'; }
 
         function executeFirebaseLogin(event) {
             event.preventDefault();
@@ -1054,29 +964,21 @@
             });
         }
 
-        // Mobile Menu Functions
         function toggleMobileMenu() {
             const menu = document.getElementById('mobileMenu');
             const icon = document.querySelector('.hamburger i');
-            
             if (menu.classList.contains('active')) {
                 menu.classList.remove('active');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                icon.className = 'fas fa-bars';
             } else {
                 menu.classList.add('active');
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
+                icon.className = 'fas fa-times';
             }
         }
 
         function toggleTerminal() {
             const term = document.getElementById('adminTerminal');
-            if (term.style.display === 'block') {
-                term.style.display = 'none';
-            } else {
-                term.style.display = 'block';
-            }
+            term.style.display = (term.style.display === 'block') ? 'none' : 'block';
         }
 
         function printTerminalLog(text) {
@@ -1094,7 +996,7 @@
             const username = document.getElementById('termUsername').value.trim();
             const password = document.getElementById('termPassword').value.trim();
             
-            printTerminalLog(`<span style="color:#67E8F9">[INFO]</span> Đang đẩy học viên <b>${username}</b>...`);
+            printTerminalLog(`<span style="color:#22D3EE">[INFO]</span> Đang đẩy học viên <b>${username}</b>...`);
 
             firebase.database().ref('students/' + username).set({
                 username: username,
@@ -1113,42 +1015,40 @@
 
         function createFireflies() {
             const container = document.body;
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < 20; i++) {
                 const fly = document.createElement('div');
                 fly.className = 'firefly';
-                const size = 5 + Math.random() * 7;
+                const size = 4 + Math.random() * 6;
                 fly.style.width = `${size}px`;
                 fly.style.height = `${size}px`;
                 fly.style.left = `${Math.random() * 100}vw`;
-                fly.style.bottom = '-30px';
-                fly.style.opacity = 0.4 + Math.random() * 0.5;
-                const duration = 15 + Math.random() * 25;
-                fly.style.animationDuration = `${duration}s`;
-                fly.style.animationDelay = `-${Math.random() * 20}s`;
+                fly.style.bottom = '-40px';
+                fly.style.opacity = 0.5 + Math.random() * 0.5;
+                fly.style.animationDuration = `${12 + Math.random() * 18}s`;
+                fly.style.animationDelay = `-${Math.random() * 15}s`;
                 container.appendChild(fly);
             }
         }
 
         function initScrollAnimations() {
-            const cards = document.querySelectorAll('.level-card');
+            const cards = document.querySelectorAll('.level-card, .course-card');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.transitionDelay = `${index * 80}ms`;
+                        entry.target.style.transitionDelay = `${index * 60}ms`;
                         entry.target.style.opacity = '1';
                         entry.target.style.transform = 'translateY(0)';
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.05 });
             
             cards.forEach(card => {
                 card.style.opacity = '0';
-                card.style.transform = 'translateY(40px)';
+                card.style.transform = 'translateY(30px)';
                 observer.observe(card);
             });
         }
 
-        // Keyboard shortcut for terminal
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.key === 't') {
                 e.preventDefault();
@@ -1156,11 +1056,10 @@
             }
         });
 
-        // Close mobile menu when clicking outside
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('mobileMenu');
             const hamburger = document.querySelector('.hamburger');
-            if (!menu.contains(e.target) && !hamburger.contains(e.target) && menu.classList.contains('active')) {
+            if (menu && !menu.contains(e.target) && !hamburger.contains(e.target) && menu.classList.contains('active')) {
                 toggleMobileMenu();
             }
         });
